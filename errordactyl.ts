@@ -14,7 +14,7 @@ const methods: methodCache = {
     put: [],
     delete: [],
     patch: []
-  }
+}
   
 for (const method in methods) {
     const regex = new RegExp(`\\.${method}\\("(\\S)*"`, 'g');
