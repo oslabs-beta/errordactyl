@@ -3,48 +3,39 @@ import errors from './error.ts';
 
 const router = new Router();
 
-// function newFunc() {
-//     conso.log("This is in New Func")
-//     const b = 3;
-//     return function () {
-//         console.log("This is in New Anon Func")
-//         console.log(b.length.property);
-//     }
-// }
+function newFunc() {
+    // conso.log("This is in New Func")
+    const b = 3;
+    return function () {
+        console.log("This is in New Anon Func")
+        console.log(b.length.property)
+    }
+}
 
 router.get("/", (ctx) => {
-
     ctx.response.body = "Get Request";
-    console.log(ctx.response.body);
-    console.log(newFunc()());
-
-    // try {
-    //     ctx.response.body = "Get Request";
-    //     console.log(ctx.response.body);
-    //     console.log(newFunc()());
-    // } catch (e) {
-    //     errors(e)
-    // }
+    newFunc()();
+    // console.log(ctx.response.body);
 });
 
 router.post("/", (ctx) => {
     ctx.response.body = "Post Request";
-    console.log(ctx.response.body);
+    // console.log(ctx.response.body);
 });
 
 router.get("/books", (ctx) => {
     ctx.response.body = "Get Request to /books";
-    console.log(ctx.response.body);
+    // console.log(ctx.response.body);
 });
 
 router.patch("/books/:id", (ctx) => {
-    ctx.response.body = "Patch Request to /books/:id";
-    console.log(ctx.response.body);
+    ctx.response.body = `Patch Request to /books/${ctx.params.id}`;
+    // console.log(ctx.response.body);
 });
 
 router.delete("/books/:id", (ctx) => {
-    ctx.response.body = "Delete Request to /books/:id";
-    console.log(ctx.response.body);
+    ctx.response.body = `Delete Request to /books/${ctx.params.id}`;
+    // console.log(ctx.response.body);
 });
 
 export default router;
