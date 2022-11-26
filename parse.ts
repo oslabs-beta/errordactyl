@@ -1,4 +1,5 @@
 import findFiles from './find_files.ts';
+import detectEndpoints from './detect_endpoints.ts';
 import { methodCache } from './types.ts';
 // check if user wants to overwrite file paths in json file
 
@@ -10,14 +11,15 @@ const methods: methodCache = {
   patch: []
 }
 
-const config = await Deno.readTextFile('./errordactyl.json').then(response => JSON.parse(response));
+let config = await Deno.readTextFile('./errordactyl.json').then(response => JSON.parse(response));
+let files: string[] | undefined = config.filePaths;
 
 const overwritePaths = confirm('Do you want to overwrite file paths in errordactyl.json?');
 
 if (overwritePaths) {
     // find files in routes folder declared in config file
     const path = config.routesPath;
-    const files = await findFiles(path);
+    files = await findFiles(path);
     console.log(files);
     // updates array of file names in config
     config.filePaths = files;
@@ -26,3 +28,14 @@ if (overwritePaths) {
 
 // use filePaths array to grab routes 
 // iterate over config.filePaths
+files?.map((file: string) => {
+  detectEndpoints(file, methods);
+})
+
+// print methods to config
+config = await Deno.readTextFile('./errordactyl.json').then(response => JSON.parse(response));
+config.endpoints = methods;
+await Deno.writeTextFile('./errordactyl.json', JSON.stringify(config));
+console.log('Successfully detected server routes; wrote to errordactyl config\nPlease input request data for applicable endpoints');
+
+// could ask user to either manually enter in config file, or enter in command line?

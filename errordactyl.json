@@ -1,1 +1,1 @@
-{"routesPath":"./test","filePaths":["./test/test1/test2/router.ts"]}
+{"routesPath":"./test","filePaths":["./test/test1/test2/router.ts"],"endpoints":{"get":["/","/books"],"post":["/"],"put":[],"delete":["/books/:id"],"patch":["/books/:id"]}}

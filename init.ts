@@ -25,3 +25,4 @@ const config = {
 }
 
 await Deno.writeTextFile('./errordactyl.json', JSON.stringify(config));
+console.log('Successfully generated initial config in ./errordactyl.json')
