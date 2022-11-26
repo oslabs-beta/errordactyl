@@ -1,5 +1,5 @@
 import findFiles from './find_files.ts';
-import detectEndpoints from './detect_endpoints.ts';
+import { detectEndpoints, detectEndpointsWithParams } from './detect_endpoints.ts';
 import { methodCache, methodCacheExtended } from './types.ts';
 // check if user wants to overwrite file paths in json file
 
@@ -9,6 +9,13 @@ const methods: methodCache = {
   put: [],
   delete: [],
   patch: []
+}
+const methodsExtended: methodCacheExtended = {
+  GET: [],
+  POST: [],
+  PUT: [],
+  DELETE: [],
+  PATCH: []
 }
 
 let config = await Deno.readTextFile('./errordactyl.json').then(response => JSON.parse(response));
@@ -23,7 +30,7 @@ if (files && files.length > 0) {
     // find files in routes folder declared in config file
     const path = config.routesPath;
     files = await findFiles(path);
-    console.log(files);
+    // console.log(files);
     // updates array of file names in config
     config.filePaths = files;
     await Deno.writeTextFile('./errordactyl.json', JSON.stringify(config));
@@ -43,12 +50,12 @@ if (files && files.length > 0) {
 // iterate over config.filePaths
 files?.map((file: string) => {
   // adds to single methodCache as each file is read
-  detectEndpoints(file, methods);
+  detectEndpointsWithParams(file, methodsExtended);
 })
 
 // print methods to config
 config = await Deno.readTextFile('./errordactyl.json').then(response => JSON.parse(response));
-config.endpoints = methods;
+config.endpoints = methodsExtended;
 await Deno.writeTextFile('./errordactyl.json', JSON.stringify(config));
 console.log('Successfully detected server routes; wrote to errordactyl config\nPlease input request data for applicable endpoints');
 

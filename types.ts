@@ -1,15 +1,15 @@
 interface endpoint {
   path: string,
-  params: RegExpMatchArray | null,
+  params?: RegExpMatchArray | null,
   body?: string
 }
 
 export interface methodCacheExtended {
-  get: endpoint[],
-  post: endpoint[],
-  put: endpoint[],
-  patch: endpoint[],
-  delete: endpoint[]
+  GET: endpoint[],
+  POST: endpoint[],
+  PUT: endpoint[],
+  PATCH: endpoint[],
+  DELETE: endpoint[]
 }
 
 export interface methodCache {

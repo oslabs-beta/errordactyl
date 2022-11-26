@@ -4,19 +4,35 @@
     "./test/test1/test2/router.ts"
   ],
   "endpoints": {
-    "get": [
-      "/",
-      "/books"
+    "GET": [
+      {
+        "path": "/"
+      },
+      {
+        "path": "/books"
+      }
     ],
-    "post": [
-      "/"
+    "POST": [
+      {
+        "path": "/"
+      }
     ],
-    "put": [],
-    "delete": [
-      "/books/:id"
+    "PUT": [],
+    "DELETE": [
+      {
+        "path": "/books/:id",
+        "params": [
+          ":id"
+        ]
+      }
     ],
-    "patch": [
-      "/books/:id"
+    "PATCH": [
+      {
+        "path": "/books/:id",
+        "params": [
+          ":id"
+        ]
+      }
     ]
   }
 }

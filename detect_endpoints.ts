@@ -2,7 +2,7 @@ import { methodCache, methodCacheExtended } from './types.ts';
 
 
 // // better time complexity option
-const detectEndpoints = async (path: string, methods: methodCache) => {
+export const detectEndpoints = async (path: string, methods: methodCache) => {
   let file = await Deno.readTextFile(path);
   // strip comments from file
   file = file.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
@@ -25,14 +25,14 @@ export const detectEndpointsWithParams = async (path: string, methods: methodCac
   file = file.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
   // iterate over methods objects and match method in file
   for (const method in methods) {
-    const regex = new RegExp(`\\.${method}\\("(\\S)*"`, 'g');
+    const regex = new RegExp(`\\.${method}\\("(\\S)*"`, 'gi');
     const endpoints: RegExpMatchArray|null = file.match(regex);
     if (endpoints) {
       for (const match of endpoints) {
-        const path: string = match.replace(`.${method}(`, '').replaceAll('"', '');
+        const path: string = match.replace(`.${method.toLowerCase()}(`, '').replaceAll('"', '');
         // check for params and create params array
         const params: RegExpMatchArray|null = path.match(/:(\S)*/g);
-        const endpoint = {path, params};
+        const endpoint = params ? {path, params} : {path};
         methods[method as keyof typeof methods].push(endpoint);
       }
     }
@@ -71,5 +71,3 @@ export const detectEndpointsWithParams = async (path: string, methods: methodCac
 //   }
 // }
 
-
-export default detectEndpoints;
