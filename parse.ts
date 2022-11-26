@@ -1,6 +1,6 @@
 import findFiles from './find_files.ts';
 import detectEndpoints from './detect_endpoints.ts';
-import { methodCache } from './types.ts';
+import { methodCache, methodCacheExtended } from './types.ts';
 // check if user wants to overwrite file paths in json file
 
 const methods: methodCache = {
@@ -14,9 +14,12 @@ const methods: methodCache = {
 let config = await Deno.readTextFile('./errordactyl.json').then(response => JSON.parse(response));
 let files: string[] | undefined = config.filePaths;
 
-const overwritePaths = confirm('Do you want to overwrite file paths in errordactyl.json?');
+// check if filePaths is empty, if not ask user if they want to overwrite the paths listed there
 
-if (overwritePaths) {
+if (files && files.length > 0) {
+  const overwritePaths = confirm('Do you want to overwrite file paths in errordactyl.json?');
+
+  if (overwritePaths) {
     // find files in routes folder declared in config file
     const path = config.routesPath;
     files = await findFiles(path);
@@ -24,11 +27,22 @@ if (overwritePaths) {
     // updates array of file names in config
     config.filePaths = files;
     await Deno.writeTextFile('./errordactyl.json', JSON.stringify(config));
+  }
+
+} else {
+  // find files in routes folder declared in config file
+  const path = config.routesPath;
+  files = await findFiles(path);
+  console.log(files);
+  // updates array of file names in config
+  config.filePaths = files;
+  await Deno.writeTextFile('./errordactyl.json', JSON.stringify(config));
 }
 
 // use filePaths array to grab routes 
 // iterate over config.filePaths
 files?.map((file: string) => {
+  // adds to single methodCache as each file is read
   detectEndpoints(file, methods);
 })
 
