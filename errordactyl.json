@@ -1,1 +1,42 @@
+<<<<<<< HEAD
 {"routesPath":"./test","filePaths":["./test/test1/test2/router.ts"],"endpoints":{"get":["/","/books"],"post":["/"],"put":[],"delete":["/books/:id"],"patch":["/books/:id"]}}
+=======
+{
+  "routesPath": "./test",
+  "filePaths": [
+    "./test/test1/test2/router.ts"
+  ],
+  "endpoints": {
+    "GET": [
+      {
+        "path": "/"
+      },
+      {
+        "path": "/books"
+      }
+    ],
+    "POST": [
+      {
+        "path": "/"
+      }
+    ],
+    "PUT": [],
+    "DELETE": [
+      {
+        "path": "/books/:id",
+        "params": [
+          ":id"
+        ]
+      }
+    ],
+    "PATCH": [
+      {
+        "path": "/books/:id",
+        "params": [
+          ":id"
+        ]
+      }
+    ]
+  }
+}
+>>>>>>> e0824929f5a7b48a360c9d9290bf3d42a907c6e6
