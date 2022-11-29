@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 interface endpoint {
   path: string,
   params?: RegExpMatchArray | null,
@@ -14,7 +12,6 @@ export interface methodCacheExtended {
   DELETE: endpoint[]
 }
 
->>>>>>> e0824929f5a7b48a360c9d9290bf3d42a907c6e6
 export interface methodCache {
   get: Array<string>;
   post: Array<string>;

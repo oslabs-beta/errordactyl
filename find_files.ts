@@ -11,11 +11,7 @@ const findFiles = async (path: string) => {
     // check if path is a folder
     const fileInfo = await Deno.stat(path);
     if (fileInfo.isDirectory) {
-<<<<<<< HEAD
-      console.log('this is a directory');
-=======
       // console.log('this is a directory');
->>>>>>> e0824929f5a7b48a360c9d9290bf3d42a907c6e6
     } else {
       console.log('must provide a valid directory');
       return;
@@ -38,11 +34,7 @@ const findFiles = async (path: string) => {
     }
     
     await readDirs(path);
-<<<<<<< HEAD
-    console.log('findFiles', files)
-=======
     // console.log('findFiles', files)
->>>>>>> e0824929f5a7b48a360c9d9290bf3d42a907c6e6
     return files;
     
   } catch (e) {

@@ -1,16 +1,8 @@
-<<<<<<< HEAD
-import { methodCache } from './types.ts';
-
-
-// // better time complexity option
-const detectEndpoints = async (path: string, methods: methodCache) => {
-=======
 import { methodCache, methodCacheExtended } from './types.ts';
 
 
 // // better time complexity option
 export const detectEndpoints = async (path: string, methods: methodCache) => {
->>>>>>> e0824929f5a7b48a360c9d9290bf3d42a907c6e6
   let file = await Deno.readTextFile(path);
   // strip comments from file
   file = file.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
@@ -27,8 +19,6 @@ export const detectEndpoints = async (path: string, methods: methodCache) => {
 
 }
 
-<<<<<<< HEAD
-=======
 export const detectEndpointsWithParams = async (path: string, methods: methodCacheExtended) => {
   let file = await Deno.readTextFile(path);
   // strip comments from file
@@ -64,7 +54,6 @@ export const detectEndpointsWithParams = async (path: string, methods: methodCac
 //   ]
 // }
 
->>>>>>> e0824929f5a7b48a360c9d9290bf3d42a907c6e6
 // better space complexity option
 // import { readLines } from 'https://deno.land/std@0.78.0/io/mod.ts';
 
@@ -82,8 +71,3 @@ export const detectEndpointsWithParams = async (path: string, methods: methodCac
 //   }
 // }
 
-<<<<<<< HEAD
-
-export default detectEndpoints;
-=======
->>>>>>> e0824929f5a7b48a360c9d9290bf3d42a907c6e6
