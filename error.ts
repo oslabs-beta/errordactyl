@@ -14,7 +14,7 @@ export default function errors(error): [] | void {
       arrayErrorStack.error.location = arrayErrorStack.error.location.match(regex2)[0];
       [arrayErrorStack.error.lineNo, arrayErrorStack.error.colNo] = arrayErrorStack.error.location.match(regex);
 
-      console.log(arrayErrorStack)
+      // console.log(arrayErrorStack)
       console.log(arrayErrorStack.error)
 
       return arrayErrorStack;

@@ -8,7 +8,7 @@ function newFunc() {
     const b = 3;
     return function () {
         console.log("This is in New Anon Func")
-        console.log(b.length.property)
+        // console.log(b.length.property)
     }
 }
 
