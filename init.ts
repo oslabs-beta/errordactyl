@@ -1,6 +1,13 @@
 // store user input for config file
 let path: string | null = './server/routes';
 let files: string[] | undefined = [];
+let pathToServer: string | null = './server/server';
+
+const useDefaultServerPath = confirm('Do you want to use the default server file location of ./server/server?');
+
+if (!useDefaultServerPath) {
+  pathToServer = prompt('Please enter the path to your server file:');
+}
 
 const useDefaultRouteLocation = confirm('Do you want to use the default route location of ./server/routes?');
 // if y then continue to next questions
@@ -20,6 +27,7 @@ if (!testAllFiles) {
 }
 
 const config = {
+  serverPath: pathToServer,
   routesPath: path,
   filePaths: files,
 }

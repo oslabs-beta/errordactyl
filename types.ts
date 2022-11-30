@@ -1,7 +1,8 @@
 export interface endpoint {
   path: string,
-  params?: RegExpMatchArray | null,
-  body?: string
+  // params?: RegExpMatchArray | null,
+  body?: Record<string, unknown>,
+  headers?: Record<string, unknown>
 }
 
 export interface methodCacheExtended {
