@@ -1,4 +1,4 @@
-import { Router } from './deps.ts';
+import { Router } from '../../../deps.ts';
 import errors from './error.ts';
 
 const router = new Router();

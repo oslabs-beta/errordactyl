@@ -1,0 +1,38 @@
+{
+  "routesPath": "./test",
+  "filePaths": [
+    "./test/test1/test2/router.ts"
+  ],
+  "endpoints": {
+    "GET": [
+      {
+        "path": "/"
+      },
+      {
+        "path": "/books"
+      }
+    ],
+    "POST": [
+      {
+        "path": "/"
+      }
+    ],
+    "PUT": [],
+    "DELETE": [
+      {
+        "path": "/books/:id",
+        "params": [
+          ":id"
+        ]
+      }
+    ],
+    "PATCH": [
+      {
+        "path": "/books/:id",
+        "params": [
+          ":id"
+        ]
+      }
+    ]
+  }
+}
