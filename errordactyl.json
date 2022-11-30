@@ -1,4 +1,5 @@
 {
+  "serverPath": "./server",
   "routesPath": "./test",
   "filePaths": [
     "./test/test1/test2/router.ts"
@@ -14,24 +15,20 @@
     ],
     "POST": [
       {
-        "path": "/"
+        "path": "/",
+        "body": {}
       }
     ],
     "PUT": [],
     "DELETE": [
       {
-        "path": "/books/:id",
-        "params": [
-          ":id"
-        ]
+        "path": "/books/:id"
       }
     ],
     "PATCH": [
       {
         "path": "/books/:id",
-        "params": [
-          ":id"
-        ]
+        "body": {}
       }
     ]
   }

@@ -1,4 +1,4 @@
-import { methodCache, methodCacheExtended } from './types.ts';
+import { methodCache, methodCacheExtended, endpoint } from './types.ts';
 
 
 // // better time complexity option
@@ -30,9 +30,13 @@ export const detectEndpointsWithParams = async (path: string, methods: methodCac
     if (endpoints) {
       for (const match of endpoints) {
         const path: string = match.replace(`.${method.toLowerCase()}(`, '').replaceAll('"', '');
-        // check for params and create params array
-        const params: RegExpMatchArray|null = path.match(/:(\S)*/g);
-        const endpoint = params ? {path, params} : {path};
+        // // check for params and create params array
+        // const params: RegExpMatchArray|null = path.match(/:(\S)*/g);
+        // const endpoint = params ? {path, params} : {path};
+        let endpoint: endpoint = {path};
+        if (method != 'GET' && method != 'DELETE') {
+          endpoint = {path, body: {}}
+        }
         methods[method as keyof typeof methods].push(endpoint);
       }
     }
