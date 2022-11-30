@@ -40,7 +40,7 @@ if (files && files.length > 0) {
   // find files in routes folder declared in config file
   const path = config.routesPath;
   files = await findFiles(path);
-  console.log(files);
+  console.log('files',files);
   // updates array of file names in config
   config.filePaths = files;
   await Deno.writeTextFile('./errordactyl.json', JSON.stringify(config));
