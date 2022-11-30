@@ -1,6 +1,6 @@
 import findFiles from './find_files.ts';
 import { detectEndpoints, detectEndpointsWithParams } from './detect_endpoints.ts';
-import { methodCache, methodCacheExtended } from './types.ts';
+import { methodCache, methodCacheExtended } from '../types.ts';
 // check if user wants to overwrite file paths in json file
 
 const methods: methodCache = {

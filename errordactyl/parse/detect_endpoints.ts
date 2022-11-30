@@ -1,4 +1,4 @@
-import { methodCache, methodCacheExtended, endpoint } from './types.ts';
+import { methodCache, methodCacheExtended, endpoint } from '../types.ts';
 
 
 // // better time complexity option

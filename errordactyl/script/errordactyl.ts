@@ -1,4 +1,4 @@
-import { endpoint } from './types.ts';
+import { endpoint } from '../types.ts';
 
 const td = (d: Uint8Array) => new TextDecoder().decode(d);
 
