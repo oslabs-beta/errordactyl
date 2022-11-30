@@ -1,4 +1,4 @@
-interface endpoint {
+export interface endpoint {
   path: string,
   params?: RegExpMatchArray | null,
   body?: string
