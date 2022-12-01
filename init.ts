@@ -2,7 +2,7 @@ export async function init() {
   // store user input for config file
   let path: string | null = './server/routes';
   let files: string[] | undefined = [];
-  let pathToServer: string | null = './server/server';
+  let pathToServer: string | null = './server/server.ts';
   
   const useDefaultServerPath = confirm('Do you want to use the default server file location of ./server/server.ts?');
   

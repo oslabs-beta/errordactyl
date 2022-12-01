@@ -17,27 +17,27 @@ export async function test() {
     switch (method) {
       case 'GET':
         arr.forEach(endpoint => {
-          script += '\ncurl localhost:3000' + endpoint.path;
+          script += '\ncurl -s localhost:3000' + endpoint.path;
         })
         break;
       case 'POST':
         arr.forEach(endpoint => {
-          script += '\ncurl -X POST' + endpoint.body + 'localhost:3000' + endpoint.path;
+          script += '\ncurl -s -X POST' + endpoint.body + 'localhost:3000' + endpoint.path;
         })
         break;
       case 'PATCH':
         arr.forEach(endpoint => {
-          script += '\ncurl -X PATCH' + endpoint.body + 'localhost:3000' + endpoint.path;
+          script += '\ncurl -s -X PATCH' + endpoint.body + 'localhost:3000' + endpoint.path;
         })
         break;
       case 'PUT':
         arr.forEach(endpoint => {
-          script += '\ncurl -X PUT' + endpoint.body + 'localhost:3000' + endpoint.path;
+          script += '\ncurl -s -X PUT' + endpoint.body + 'localhost:3000' + endpoint.path;
         })
         break;
       case 'DELETE':
         arr.forEach(endpoint => {
-          script += '\n curl -X DELETE localhost:3000' + endpoint.path;
+          script += '\n curl -s -X DELETE localhost:3000' + endpoint.path;
         })
         break;
     }
@@ -58,6 +58,7 @@ export async function test() {
   console.log(await p.status());
   console.log('STDOUT:', td(await p.output()).trim());
   console.log('STDERR:', td(await p.stderrOutput()).trim());
+
 }
 
 
