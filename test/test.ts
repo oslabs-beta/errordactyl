@@ -22,6 +22,7 @@ export async function test() {
             echo "GET to '${endpoint.path}': \$GET${index}"
           `
           script += getScript;
+
         })
         break;
       case 'POST':
@@ -40,12 +41,14 @@ export async function test() {
         })
         break;
       case 'DELETE':
+
         arr.forEach((endpoint, index) => {
           const deleteScript = `
             \nDEL${index}=$(curl -s -X DELETE localhost:3000${endpoint.path})
             echo "DELETE to '${endpoint.path}': \$DEL${index}"
           `
           script += deleteScript;
+
         })
         break;
     }
@@ -67,6 +70,7 @@ export async function test() {
   console.log('Your server responded:');
   console.log(td(await p.output()).trim())
   console.log('STDERR:', td(await p.stderrOutput()).trim());
+
 }
 
 
