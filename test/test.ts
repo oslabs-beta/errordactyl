@@ -3,7 +3,7 @@ import { endpoint } from '../types.ts';
 export async function test() {
   const td = (d: Uint8Array) => new TextDecoder().decode(d);
   
-  const config = await Deno.readTextFile('./errordactyl.json').then(res => JSON.parse(res));
+  const config = await Deno.readTextFile('./_errordactyl/config.json').then(res => JSON.parse(res));
   
   const pathToServer:string = config.serverPath;
   
@@ -49,11 +49,11 @@ export async function test() {
     return await Deno.writeTextFile(path, text);
   }
   
-  await writeFile('./errordactyl.sh', script);
+  await writeFile('./_errordactyl/test.sh', script);
   
-  await Deno.run({cmd: ['chmod', '+x', './errordactyl.sh']}).status();
+  await Deno.run({cmd: ['chmod', '+x', './_errordactyl/test.sh']}).status();
   
-  const p = await Deno.run({cmd: ['./errordactyl.sh'], stdout:'piped', stderr:'piped'});
+  const p = await Deno.run({cmd: ['./_errordactyl/test.sh'], stdout:'piped', stderr:'piped'});
   
   console.log(await p.status());
   console.log('STDOUT:', td(await p.output()).trim());

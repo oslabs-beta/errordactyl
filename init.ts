@@ -4,7 +4,7 @@ export async function init() {
   let files: string[] | undefined = [];
   let pathToServer: string | null = './server/server';
   
-  const useDefaultServerPath = confirm('Do you want to use the default server file location of ./server/server?');
+  const useDefaultServerPath = confirm('Do you want to use the default server file location of ./server/server.ts?');
   
   if (!useDefaultServerPath) {
     pathToServer = prompt('Please enter the path to your server file:');
@@ -32,7 +32,9 @@ export async function init() {
     routesPath: path,
     filePaths: files,
   }
+
+  await Deno.mkdir('./_errordactyl');
   
-  await Deno.writeTextFile('./errordactyl.json', JSON.stringify(config));
-  console.log('Successfully generated initial config in ./errordactyl.json')
+  await Deno.writeTextFile('./_errordactyl/config.json', JSON.stringify(config));
+  console.log('Successfully generated initial config in ./_errordactyl/config.json')
 }

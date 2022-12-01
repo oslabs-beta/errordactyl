@@ -20,7 +20,7 @@ const methodsExtended: methodCacheExtended = {
 }
 
 export async function parse() {
-  let config = await Deno.readTextFile('./errordactyl.json').then(response => JSON.parse(response));
+  let config = await Deno.readTextFile('./_errordactyl/config.json').then(response => JSON.parse(response));
   let files: string[] | undefined = config.filePaths;
   
   // check if filePaths is empty, if not ask user if they want to overwrite the paths listed there
@@ -35,7 +35,7 @@ export async function parse() {
       // console.log(files);
       // updates array of file names in config
       config.filePaths = files;
-      await Deno.writeTextFile('./errordactyl.json', JSON.stringify(config));
+      await Deno.writeTextFile('./_errordactyl/config.json', JSON.stringify(config));
     }
   
   } else {
@@ -45,7 +45,7 @@ export async function parse() {
     console.log('files',files);
     // updates array of file names in config
     config.filePaths = files;
-    await Deno.writeTextFile('./errordactyl.json', JSON.stringify(config));
+    await Deno.writeTextFile('./_errordactyl/config.json', JSON.stringify(config));
   }
   
   // use filePaths array to grab routes 
@@ -56,9 +56,9 @@ export async function parse() {
   })
   
   // print methods to config
-  config = await Deno.readTextFile('./errordactyl.json').then(response => JSON.parse(response));
+  config = await Deno.readTextFile('./_errordactyl/config.json').then(response => JSON.parse(response));
   config.endpoints = methodsExtended;
-  await Deno.writeTextFile('./errordactyl.json', JSON.stringify(config));
+  await Deno.writeTextFile('./_errordactyl/config.json', JSON.stringify(config));
   console.log('Successfully detected server routes; wrote to errordactyl config\nPlease input request data for applicable endpoints');
   
   // could ask user to either manually enter in config file, or enter in command line?
