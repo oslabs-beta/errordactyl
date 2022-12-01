@@ -16,28 +16,36 @@ export async function test() {
   function addRoutes(method:string, arr:Array<endpoint>) {
     switch (method) {
       case 'GET':
-        arr.forEach(endpoint => {
-          script += '\ncurl localhost:3000' + endpoint.path;
+        arr.forEach((endpoint, index) => {
+          const getScript = `
+            \nGET${index}=$(curl -s localhost:3000${endpoint.path})
+            echo "GET to '${endpoint.path}': \$GET${index}"
+          `
+          script += getScript;
         })
         break;
       case 'POST':
         arr.forEach(endpoint => {
-          script += '\ncurl -X POST' + endpoint.body + 'localhost:3000' + endpoint.path;
+          script += '\ncurl -s -X POST' + endpoint.body + 'localhost:3000' + endpoint.path;
         })
         break;
       case 'PATCH':
         arr.forEach(endpoint => {
-          script += '\ncurl -X PATCH' + endpoint.body + 'localhost:3000' + endpoint.path;
+          script += '\ncurl -s -X PATCH' + endpoint.body + 'localhost:3000' + endpoint.path;
         })
         break;
       case 'PUT':
         arr.forEach(endpoint => {
-          script += '\ncurl -X PUT' + endpoint.body + 'localhost:3000' + endpoint.path;
+          script += '\ncurl -s -X PUT' + endpoint.body + 'localhost:3000' + endpoint.path;
         })
         break;
       case 'DELETE':
-        arr.forEach(endpoint => {
-          script += '\n curl -X DELETE localhost:3000' + endpoint.path;
+        arr.forEach((endpoint, index) => {
+          const deleteScript = `
+            \nDEL${index}=$(curl -s -X DELETE localhost:3000${endpoint.path})
+            echo "DELETE to '${endpoint.path}': \$DEL${index}"
+          `
+          script += deleteScript;
         })
         break;
     }
@@ -56,7 +64,8 @@ export async function test() {
   const p = await Deno.run({cmd: ['./_errordactyl/test.sh'], stdout:'piped', stderr:'piped'});
   
   console.log(await p.status());
-  console.log('STDOUT:', td(await p.output()).trim());
+  console.log('Your server responded:');
+  console.log(td(await p.output()).trim())
   console.log('STDERR:', td(await p.stderrOutput()).trim());
 }
 
