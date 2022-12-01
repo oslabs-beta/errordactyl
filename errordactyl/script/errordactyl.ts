@@ -56,7 +56,7 @@ const p = await Deno.run({cmd: ['./client-repo/script.sh'], stdout:'piped', stde
 
 console.log(await p.status());
 console.log('STDOUT:', td(await p.output()).trim());
-console.log('STDERR:', td(await p.stderrOutput()).trim());
+// console.log('STDERR:', td(await p.stderrOutput()).trim());
 
 
 
