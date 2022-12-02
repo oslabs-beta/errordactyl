@@ -22,33 +22,43 @@ export async function test() {
             echo "GET to '${endpoint.path}': \$GET${index}"
           `
           script += getScript;
-
         })
         break;
       case 'POST':
-        arr.forEach(endpoint => {
-          script += '\ncurl -s -X POST' + endpoint.body + 'localhost:3000' + endpoint.path;
+        arr.forEach((endpoint, index) => {
+          const postScript = `
+            \nPOST${index}=$(curl -s -X POST -d '${JSON.stringify(endpoint.body)}' localhost:3000${endpoint.path})
+            echo "POST to '${endpoint.path}': \$POST${index}"
+          `
+          script += postScript;
+          // script += '\ncurl -s -X POST' + JSON.stringify(endpoint.body) + 'localhost:3000' + endpoint.path;
         })
         break;
       case 'PATCH':
-        arr.forEach(endpoint => {
-          script += '\ncurl -s -X PATCH' + endpoint.body + 'localhost:3000' + endpoint.path;
+        arr.forEach((endpoint, index) => {
+          const patchScript = `
+            \nPATCH${index}=$(curl -s -X PATCH -d '${JSON.stringify(endpoint.body)}' localhost:3000${endpoint.path})
+            echo "PATCH to '${endpoint.path}': \$PATCH${index}"
+          `
+          script += patchScript;
         })
         break;
       case 'PUT':
-        arr.forEach(endpoint => {
-          script += '\ncurl -s -X PUT' + endpoint.body + 'localhost:3000' + endpoint.path;
+        arr.forEach((endpoint, index) => {
+          const putScript = `
+            \nPUT${index}=$(curl -s -X PUT -d '${JSON.stringify(endpoint.body)}' localhost:3000${endpoint.path})
+            echo "PUT to '${endpoint.path}': \$PUT${index}"
+          `
+          script += putScript;
         })
         break;
       case 'DELETE':
-
         arr.forEach((endpoint, index) => {
           const deleteScript = `
             \nDEL${index}=$(curl -s -X DELETE localhost:3000${endpoint.path})
             echo "DELETE to '${endpoint.path}': \$DEL${index}"
           `
           script += deleteScript;
-
         })
         break;
     }
