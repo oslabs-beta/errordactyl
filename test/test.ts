@@ -145,7 +145,7 @@ export async function testOne(method:string, endpoint:string, body?:string) {
 
   const p = await Deno.run({cmd: ['./_errordactyl/test.sh'], stdout:'piped', stderr:'piped'});
 
-  console.log(await p.status());
+  await p.status();
 
   console.log('Your server responded:');
   console.log(td(await p.output()).trim())
