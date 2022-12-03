@@ -82,7 +82,7 @@ export async function test() {
   const p = await Deno.run({cmd: ['./_errordactyl/test.sh'], stdout:'piped', stderr:'piped'});
 
   await p.status();
-  console.log('Your server responded:');
+  console.log('%cYour server responded:%c\n', 'background-color: white', 'background-color: transparent');
   console.log(td(await p.output()).trim())
   const STDERR = (td(await p.stderrOutput()).trim())
 
@@ -147,7 +147,7 @@ export async function testOne(method:string, endpoint:string, body?:string) {
 
   console.log(await p.status());
 
-  console.log('Your server responded:');
+  console.log('%cYour server responded:%c\n', 'background-color: white', 'background-color: transparent');
   console.log(td(await p.output()).trim())
   const STDERR = (td(await p.stderrOutput()).trim())
 
