@@ -14,12 +14,17 @@ export async function test() {
   }
   
   function addRoutes(method:string, arr:Array<endpoint>) {
+    const colorVars = `
+      NC='\\0033[0m'
+      BPURPLE='\\033[1;35m'
+      BGREEN='\\033[1;32m'`;
+    script += colorVars;
     switch (method) {
       case 'GET':
         arr.forEach((endpoint, index) => {
           const getScript = `
             \nGET${index}=$(curl -s localhost:3000${endpoint.path})
-            echo "GET to '${endpoint.path}': \$GET${index}"
+            echo -e "\${BGREEN}GET to '${endpoint.path}':\${NC} \$GET${index}"
           `
           script += getScript;
         })
@@ -28,7 +33,7 @@ export async function test() {
         arr.forEach((endpoint, index) => {
           const postScript = `
             \nPOST${index}=$(curl -s -X POST -d '${JSON.stringify(endpoint.body)}' localhost:3000${endpoint.path})
-            echo "POST to '${endpoint.path}': \$POST${index}"
+            echo -e "\${BGREEN}POST to '${endpoint.path}':\${NC} \$POST${index}"
           `
           script += postScript;
           // script += '\ncurl -s -X POST' + JSON.stringify(endpoint.body) + 'localhost:3000' + endpoint.path;
@@ -38,7 +43,7 @@ export async function test() {
         arr.forEach((endpoint, index) => {
           const patchScript = `
             \nPATCH${index}=$(curl -s -X PATCH -d '${JSON.stringify(endpoint.body)}' localhost:3000${endpoint.path})
-            echo "PATCH to '${endpoint.path}': \$PATCH${index}"
+            echo -e "\${BGREEN}PATCH to '${endpoint.path}':\${NC} \$PATCH${index}"
           `
           script += patchScript;
         })
@@ -47,7 +52,7 @@ export async function test() {
         arr.forEach((endpoint, index) => {
           const putScript = `
             \nPUT${index}=$(curl -s -X PUT -d '${JSON.stringify(endpoint.body)}' localhost:3000${endpoint.path})
-            echo "PUT to '${endpoint.path}': \$PUT${index}"
+            echo -e "\${BGREEN}PUT to '${endpoint.path}':\${NC} \$PUT${index}"
           `
           script += putScript;
         })
@@ -56,7 +61,7 @@ export async function test() {
         arr.forEach((endpoint, index) => {
           const deleteScript = `
             \nDEL${index}=$(curl -s -X DELETE localhost:3000${endpoint.path})
-            echo "DELETE to '${endpoint.path}': \$DEL${index}"
+            echo -e "\${BGREEN}DELETE to '${endpoint.path}':\${NC} \$DEL${index}"
           `
           script += deleteScript;
         })
@@ -77,7 +82,7 @@ export async function test() {
   const p = await Deno.run({cmd: ['./_errordactyl/test.sh'], stdout:'piped', stderr:'piped'});
   
   console.log(await p.status());
-  console.log('Your server responded:');
+  console.log('%cYour server responded:%c\n', 'background-color: blue', 'background-color: transparent');
   console.log(td(await p.output()).trim())
   console.log('STDERR:', td(await p.stderrOutput()).trim());
 
