@@ -4,7 +4,6 @@ import { parse } from './parse/parse.ts';
 import { init } from './init.ts';
 
 const args = parser(Deno.args);
-console.log(args);
 let body = '';
 
 //handle arguments

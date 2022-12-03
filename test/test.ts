@@ -73,8 +73,8 @@ export async function test() {
   await Deno.run({cmd: ['chmod', '+x', './_errordactyl/test.sh']}).status();
   
   const p = await Deno.run({cmd: ['./_errordactyl/test.sh'], stdout:'piped', stderr:'piped'});
-  
-  console.log(await p.status());
+
+  await p.status();
   console.log('Your server responded:');
   console.log(td(await p.output()).trim())
   const STDERR = (td(await p.stderrOutput()).trim())
