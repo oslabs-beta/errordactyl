@@ -1,4 +1,5 @@
 import { endpoint } from '../types.ts';
+import errors from './error.ts';
 
 const td = (d: Uint8Array) => new TextDecoder().decode(d);
 
@@ -9,6 +10,7 @@ const pathToServer:string = config.serverPath;
 let script = `#!/bin/bash\ndeno run --allow-net ${pathToServer} &\nDENO_PID=$!\nsleep .5`;
 
 export async function test() {
+
   for (const method in config.endpoints) {
     addRoutes(method, config.endpoints[method]);
   }
@@ -75,7 +77,9 @@ export async function test() {
   console.log(await p.status());
   console.log('Your server responded:');
   console.log(td(await p.output()).trim())
-  console.log('STDERR:', td(await p.stderrOutput()).trim());
+  const STDERR = (td(await p.stderrOutput()).trim())
+
+  console.log(errors(STDERR));
 }
 
 export async function testOne(method:string, endpoint:string, body?:string) {
@@ -115,15 +119,19 @@ export async function testOne(method:string, endpoint:string, body?:string) {
   script += `\nkill $DENO_PID`;
 
   await writeFile('./_errordactyl/test.sh', script);
-  
+
   await Deno.run({cmd: ['chmod', '+x', './_errordactyl/test.sh']}).status();
-  
+
   const p = await Deno.run({cmd: ['./_errordactyl/test.sh'], stdout:'piped', stderr:'piped'});
-  
+
   console.log(await p.status());
+
   console.log('Your server responded:');
   console.log(td(await p.output()).trim())
-  console.log('STDERR:', td(await p.stderrOutput()).trim());
+  const STDERR = (td(await p.stderrOutput()).trim())
+
+  console.log(errors(STDERR));
+
 }
 
 async function writeFile(path:string, text:string): Promise<void> {
