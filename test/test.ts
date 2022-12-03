@@ -3,13 +3,19 @@ import errors from './error.ts';
 
 const td = (d: Uint8Array) => new TextDecoder().decode(d);
 
-const config = await Deno.readTextFile('./_errordactyl/config.json').then(res => JSON.parse(res));
-
-const pathToServer:string = config.serverPath;
-
-let script = `#!/bin/bash\ndeno run --allow-net ${pathToServer} &\nDENO_PID=$!\nsleep .5`;
-
 export async function test() {
+
+  const config = await Deno.readTextFile('./_errordactyl/config.json').then(res => JSON.parse(res));
+
+  const pathToServer:string = config.serverPath;
+
+  let script = `#!/bin/bash\ndeno run --allow-net ${pathToServer} &\nDENO_PID=$!\nsleep .5\n`;
+
+  const colorVars = 
+  `NC='\\0033[0m'
+  BPURPLE='\\033[1;35m'
+  BGREEN='\\033[1;32m'`;
+  script += colorVars;
 
   for (const method in config.endpoints) {
     addRoutes(method, config.endpoints[method]);
@@ -18,12 +24,13 @@ export async function test() {
   script += `\nkill $DENO_PID`;
 
   function addRoutes(method:string, arr:Array<endpoint>) {
+
     switch (method) {
       case 'GET':
         arr.forEach((endpoint, index) => {
           const getScript = `
             \nGET${index}=$(curl -s localhost:3000${endpoint.path})
-            echo "GET to '${endpoint.path}': \$GET${index}"
+            echo -e "\${BPURPLE}GET to '${endpoint.path}': \${NC}\$GET${index}"
           `
           script += getScript;
         })
@@ -32,7 +39,7 @@ export async function test() {
         arr.forEach((endpoint, index) => {
           const postScript = `
             \nPOST${index}=$(curl -s -X POST -d '${JSON.stringify(endpoint.body)}' localhost:3000${endpoint.path})
-            echo "POST to '${endpoint.path}': \$POST${index}"
+            echo -e "\${BPURPLE}POST to '${endpoint.path}': \${NC}\$POST${index}"
           `
           script += postScript;
           // script += '\ncurl -s -X POST' + JSON.stringify(endpoint.body) + 'localhost:3000' + endpoint.path;
@@ -42,7 +49,7 @@ export async function test() {
         arr.forEach((endpoint, index) => {
           const patchScript = `
             \nPATCH${index}=$(curl -s -X PATCH -d '${JSON.stringify(endpoint.body)}' localhost:3000${endpoint.path})
-            echo "PATCH to '${endpoint.path}': \$PATCH${index}"
+            echo -e "\${BPURPLE}PATCH to '${endpoint.path}': \${NC}\$PATCH${index}"
           `
           script += patchScript;
         })
@@ -51,7 +58,7 @@ export async function test() {
         arr.forEach((endpoint, index) => {
           const putScript = `
             \nPUT${index}=$(curl -s -X PUT -d '${JSON.stringify(endpoint.body)}' localhost:3000${endpoint.path})
-            echo "PUT to '${endpoint.path}': \$PUT${index}"
+            echo -e "\${BPURPLE}PUT to '${endpoint.path}': \${NC}\$PUT${index}"
           `
           script += putScript;
         })
@@ -60,7 +67,7 @@ export async function test() {
         arr.forEach((endpoint, index) => {
           const deleteScript = `
             \nDEL${index}=$(curl -s -X DELETE localhost:3000${endpoint.path})
-            echo "DELETE to '${endpoint.path}': \$DEL${index}"
+            echo -e "\${BPURPLE}DELETE to '${endpoint.path}': \${NC}\$DEL${index}"
           `
           script += deleteScript;
         })
@@ -83,35 +90,49 @@ export async function test() {
 }
 
 export async function testOne(method:string, endpoint:string, body?:string) {
+
+  const config = await Deno.readTextFile('./_errordactyl/config.json').then(res => JSON.parse(res));
+
+  const pathToServer:string = config.serverPath;
+
+  let script = `#!/bin/bash\ndeno run --allow-net ${pathToServer} &\nDENO_PID=$!\nsleep .5\n`;
+
+  const colorVars = 
+      `NC='\\0033[0m'
+      BPURPLE='\\033[1;35m'
+      BGREEN='\\033[1;32m'`;
+    script += colorVars;
+
   switch (method) {
+    
     case 'GET':
       script += `
       \nGET=$(curl -s localhost:3000${endpoint})
-      echo "GET to '${endpoint}': \$GET"
+      echo -e "\${BPURPLE}GET to '${endpoint}': \${NC}\$GET"
       `
     break;
     case 'POST':
       script += `
       \nPOST=$(curl -s -X POST -d '${body}' localhost:3000${endpoint})
-      echo "POST to '${endpoint}': \$POST"
+      echo -e "\${BPURPLE}POST to '${endpoint}': \${NC}\$POST"
       `
     break;
     case 'PATCH':
       script += `
       \nPATCH=$(curl -s -X PATCH -d '${JSON.stringify(body)}' localhost:3000${endpoint})
-      echo "PATCH to '${endpoint}': \$PATCH"
+      echo -e "\${BPURPLE}PATCH to '${endpoint}': \${NC}\$PATCH"
       `
     break;
     case 'PUT':
       script += `
       \nPATCH=$(curl -s -X PATCH -d '${JSON.stringify(body)}' localhost:3000${endpoint})
-      echo "PATCH to '${endpoint}': \$PATCH"
+      echo -e"\${BPURPLE}PATCH to '${endpoint}': \${NC}\$PATCH"
       `
     break;
     case 'DELETE':
       script += `
       \nDELETE=$(curl -s -X DELETE localhost:3000${endpoint})
-      echo "DELETE to '${endpoint}': \$DELETE"
+      echo -e "\${BPURPLE}DELETE to '${endpoint}': \${NC}\$DELETE"
       `
     break;
   }

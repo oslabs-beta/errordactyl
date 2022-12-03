@@ -24,8 +24,8 @@ const allErrors = {...Deno.errors, EvalError, RangeError, ReferenceError, Syntax
 //   // throw new Error("Undetected Error Type");
 // }
 
-export default function errors(errorMessage): [] | void {
-
+export default function errors(errorMessage): [] | string {
+  if (!errorMessage) return "...";
   // console.log(errorMessage)
 
       const arrayErrorStackSplit = (JSON.stringify(errorMessage)).split("\\n\\n");
@@ -35,8 +35,6 @@ export default function errors(errorMessage): [] | void {
       arrayErrorStackSplit.forEach((stringElement) => {
         stringElement.split('\\n').forEach((element) => arrayErrorStack.push(element.replace('    at ','')))}
       )
-
-      console.log("Array Error Stack", arrayErrorStack)
 
       const regex = /(?!:)\d+/g;
       const regex2 = /(?<=file:\/\/)\S*/;  // looking for strings after file://...
