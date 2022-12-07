@@ -1,4 +1,7 @@
 // class encapsulation of test logic
+import { config as dotenv } from "https://deno.land/x/dotenv/mod.ts";
+const env = dotenv();
+
 import { endpoint, config } from '../types.ts';
 import errors from './error.ts';
 
@@ -16,7 +19,7 @@ export default class Test {
   startScript = async ():Promise<void> =>  {
     this.config = await Deno.readTextFile('./_errordactyl/config.json').then(res => JSON.parse(res));
     const pathToServer:string = this.config.serverPath;
-    this.script = `#!/bin/bash\ndeno run --allow-net ${pathToServer} &\nDENO_PID=$!\nsleep .5\n`;
+    this.script = `#!/bin/bash\ndeno run --allow-net --allow-read ${pathToServer} &\nDENO_PID=$!\nsleep .5\n`;
     const colorVars = 
     `NC='\\0033[0m'
     BPURPLE='\\033[1;35m'
@@ -27,11 +30,14 @@ export default class Test {
   }
 
   routeScripter = (method:string, data:Array<endpoint> | string, body?:string) => {
+  // retrieve PORT in order of priority
+  const PORT: number = this.config.PORT || Number(env.PORT) || 3000;
+  // maybe refactor this giant ternary lol
   Array.isArray(data)?
   method === ('GET'||'DELETE')?
     (data.forEach((endpoint, index) => {
       const getScript = `
-        \n${method}${index}=$(curl -s localhost:3000${endpoint.path})
+        \n${method}${index}=$(curl -s localhost:${PORT}${endpoint.path})
         echo -e "\${BPURPLE}${method} to '${endpoint.path}': \${NC}\$GET${index}"
         `
       this.script += getScript;

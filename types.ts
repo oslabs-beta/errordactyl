@@ -31,4 +31,5 @@ export interface config {
   routesPath: string,
   filePaths: string[],
   endpoints: methodCacheExtended
+  PORT?: number
 }
