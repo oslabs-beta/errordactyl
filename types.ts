@@ -20,3 +20,15 @@ export interface methodCache {
   delete: Array<string>;
   patch: Array<string>;
 }
+
+export interface testMethods {
+  testAll: () => void,
+  testOne: (method:string, endpoint:string, body?:string) => void
+}
+
+export interface config {
+  serverPath: string,
+  routesPath: string,
+  filePaths: string[],
+  endpoints: methodCacheExtended
+}
