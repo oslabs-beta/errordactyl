@@ -9,7 +9,7 @@ export async function test() {
 
   const pathToServer:string = config.serverPath;
 
-  let script = `#!/bin/bash\ndeno run --allow-net ${pathToServer} &\nDENO_PID=$!\nsleep .5\n`;
+  let script = `#!/bin/bash\ndeno run -A ${pathToServer} &\nDENO_PID=$!\nsleep 2\n`;
 
   const colorVars = 
   `NC='\\0033[0m'
