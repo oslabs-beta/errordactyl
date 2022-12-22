@@ -9,7 +9,9 @@ let script: string;
 const startScript = async ():Promise<void> =>  {
   config = await Deno.readTextFile('./_errordactyl/config.json').then(res => JSON.parse(res));
   const pathToServer:string = config.serverPath;
-  script = `#!/bin/bash\ndeno run --allow-net ${pathToServer} &\nDENO_PID=$!\nsleep .5\n`;
+
+  let script = `#!/bin/bash\ndeno run -A ${pathToServer} &\nDENO_PID=$!\nsleep 2\n`;
+
   const colorVars = 
   `NC='\\0033[0m'
   BPURPLE='\\033[1;35m'
