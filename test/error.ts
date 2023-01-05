@@ -124,7 +124,6 @@ export default function errors(errorMessage: string): finalObjType[] | string {
               finalObj.location = strobj.location?.replace(removeLineAndColumnNumber[0], '')
             }
           }
-          console.log(finalObj)
           arrayOfUsefulErrorInformation.push(finalObj);
         }
       }
