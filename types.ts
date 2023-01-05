@@ -51,3 +51,14 @@ export interface finalObjType {
   lineNo: string | undefined,
   colNo: string | undefined,
 }
+export interface testMethods {
+  testAll: () => void,
+  testOne: (method:string, endpoint:string, body?:string) => void
+}
+
+export interface config {
+  serverPath: string,
+  routesPath: string,
+  filePaths: string[],
+  endpoints: methodCacheExtended
+}
