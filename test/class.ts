@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { spawn } = require('node:child_process')
 
 // class encapsulation of test logic
 import { endpoint, config } from '../types';
@@ -16,9 +17,11 @@ export default class Test {
   td = (d: Uint8Array) => new TextDecoder().decode(d);
 
   startScript = async ():Promise<void> =>  {
+    // this.config = await Deno.readTextFile('./_errordactyl/config.json').then(res => JSON.parse(res));
     this.config = await fs.readFile('./_errordactyl/config.json').then(res => JSON.parse(res)); // fs.readFile
     const pathToServer:string = this.config.serverPath;
-    this.script = `#!/bin/bash\ndeno run --allow-net ${pathToServer} &\nDENO_PID=$!\nsleep .5\n`; // change CLI script command to use node
+    // this.script = `#!/bin/bash\ndeno run --allow-net ${pathToServer} &\nDENO_PID=$!\nsleep .5\n`; // change CLI script command to use node
+    this.script = `#!/bin/bash\nnode ${pathToServer} &\nDENO_PID=$!\nsleep .5\n`; // change CLI script command to use node
     const colorVars =
     `NC='\\0033[0m'
     BPURPLE='\\033[1;35m'
@@ -62,18 +65,24 @@ export default class Test {
   writeAndRun = async () => {
     this.script += `\nkill $DENO_PID`; // Change to Node's specific version of PID (unknown)
 
+    // await Deno.writeTextFile('./_errordactyl/test.sh', this.script);
     await fs.writeFile('./_errordactyl/test.sh', this.script); // fs.writeFile
 
-    await Deno.run({cmd: ['chmod', '+x', './_errordactyl/test.sh']}).status(); // figure out Node subprocess and re-wrtie
+    // await Deno.run({cmd: ['chmod', '+x', './_errordactyl/test.sh']}).status(); // figure out Node subprocess and re-wrtie
+    await spawn('chmod', ['+x', './_errordactyl/test.sh']); // figure out Node subprocess and re-write
 
-    const p = await Deno.run({cmd: ['./_errordactyl/test.sh'], stdout:'piped', stderr:'piped'}); // figure out Node subprocess and re-wrtie
-    await p.status();
-
+    // const p = await Deno.run({cmd: ['./_errordactyl/test.sh'], stdout:'piped', stderr:'piped'}); // figure out Node subprocess and re-write
+    const p = await spawn('./_errordactyl/test.sh', [], {stdio: 'pipe'})
     console.log('%cYour server responded:%c\n', 'background-color: white', 'background-color: transparent');
-    console.log(this.td(await p.output()).trim())
 
-    const STDERR = (this.td(await p.stderrOutput()).trim())
-    console.log(errors(STDERR)); // <---------------- !!!!
+    p.stdout.on('data', (data) => {
+      console.log(this.td(data).trim())
+    });
+
+    // const STDERR = (this.td(await p.stderrOutput()).trim())
+    p.stderr.on('data', (data) => {
+      console.log(errors(this.td(data).trim())); // <---------------- !!!!
+    })
   }
 
   testAll = async () => {

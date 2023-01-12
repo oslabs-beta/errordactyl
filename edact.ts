@@ -1,9 +1,12 @@
-import { parse as parser } from 'https://deno.land/std@0.166.0/flags/mod.ts'; // needs to be replaced
+// import { parse as parser } from 'https://deno.land/std@0.166.0/flags/mod.ts'; // no longer needed as we are using Node and not Deno
 import { parse } from './parse/parse';
 import { init } from './init';
 import Test from './test/class'
 
-const args = parser(process.argv); // process.argv in Node for CLI arguments; we also need to replace parser from denoLand
+const yargs = require('yargs/yargs');
+
+// const args = parser(Deno.args);
+const args = yargs(process.argv); // process.argv in Node for CLI arguments and using yargs to parse the arguments into an object
 let body = '';
 
 const test = new Test();

@@ -12,6 +12,8 @@ const fs = require('fs');
 const findFiles = async (path: string) => {
   try {
     // check if path is a folder
+
+    // const fileInfo = await Deno.stat(path);
     const fileInfo = await fs.stat(path); // node equivalent is fs.stat() but Node docs say using this before any other file manipulation is not recommended
     if (fileInfo.isDirectory) { // node docs say that isDirectory is a method definition that is invoked to return a boolean
       // console.log('this is a directory');
@@ -23,6 +25,7 @@ const findFiles = async (path: string) => {
     const files: string[] = [];
 
     const readDirs = async (folder: string) => {
+      //for await (const dirEntry of Deno.readDir(folder)) {
         for await (const dirEntry of fs.readDir(folder)) { //use fs.readDir
             const entryPath = `${folder}/${dirEntry.name}`; // double check if the name property exists on dirEntry in Node
             // if we get to a directory call readDirs on it
@@ -42,7 +45,7 @@ const findFiles = async (path: string) => {
 
   } catch (e) {
     // handle different errors here
-    if (e instanceof Error) console.log('threw NotFound'); // unknown in Node. Closest I could find were Node.js error codes
+    if (e instanceof Error) console.log(e); // unknown in Node. Closest I could find were Node.js error codes
   }
 };
 

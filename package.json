@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/oslabs-beta/errordactyl#readme",
   "devDependencies": {
-    "@types/node": "^18.11.18"
+    "@types/node": "^18.11.18",
+    "yargs": "^17.6.2"
   }
 }

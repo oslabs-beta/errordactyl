@@ -22,6 +22,7 @@ const methodsExtended: methodCacheExtended = {
 }
 
 export async function parse() {
+  // let config = await Deno.readTextFile('./_errordactyl/config.json').then(response => JSON.parse(response));
   let config = await fs.readFile('./_errordactyl/config.json').then(response => JSON.parse(response)); // replaced with Node's fs.readFile
   let files: string[] | undefined = config.filePaths;
 
@@ -37,6 +38,7 @@ export async function parse() {
       // console.log(files);
       // updates array of file names in config
       config.filePaths = files;
+      // await Deno.writeTextFile('./_errordactyl/config.json', JSON.stringify(config));
       await fs.writeFile('./_errordactyl/config.json', JSON.stringify(config)); //use fs.writeFile (double check)
     }
 
@@ -47,6 +49,7 @@ export async function parse() {
     console.log('files',files);
     // updates array of file names in config
     config.filePaths = files;
+    // await Deno.writeTextFile('./_errordactyl/config.json', JSON.stringify(config));
     await fs.writeFile('./_errordactyl/config.json', JSON.stringify(config)); //use fs.writeFile (double check)
   }
 
@@ -58,8 +61,10 @@ export async function parse() {
   })
 
   // print methods to config
+  // config = await Deno.readTextFile('./_errordactyl/config.json').then(response => JSON.parse(response));
   config = await fs.readFile('./_errordactyl/config.json').then(response => JSON.parse(response)); // use fs.readFile
   config.endpoints = methodsExtended;
+  // await Deno.writeTextFile('./_errordactyl/config.json', JSON.stringify(config));
   await fs.writeFile('./_errordactyl/config.json', JSON.stringify(config));
   console.log('Successfully detected server routes; wrote to errordactyl config\nPlease input request data for applicable endpoints'); // fs.writeFile
 

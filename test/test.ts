@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { spawn } = require('node:child_process');
 
 import { endpoint, config } from '../types';
 import errors from './error';
@@ -9,6 +10,7 @@ let config: config;
 let script: string;
 
 const startScript = async ():Promise<void> =>  {
+  // config = await Deno.readTextFile('./_errordactyl/config.json').then(res => JSON.parse(res));
   config = await fs.readFile('./_errordactyl/config.json').then(res => JSON.parse(res)); // fs.readFile
   const pathToServer:string = config.serverPath;
 
@@ -58,6 +60,7 @@ const routeScripter = (method:string, data:Array<endpoint> | string, body?:strin
 const writeAndRun = async () => {
   script += `\nkill $DENO_PID`;
 
+  // await Deno.writeTextFile('./_errordactyl/test.sh', script);
   await fs.writeFile('./_errordactyl/test.sh', script); // fs.writeFile
 
   await Deno.run({cmd: ['chmod', '+x', './_errordactyl/test.sh']}).status();
