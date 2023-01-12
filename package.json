@@ -1,0 +1,25 @@
+{
+  "name": "errordactyl_node",
+  "version": "0.0.1",
+  "description": "node version of errordactyl",
+  "main": "edact.ts",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oslabs-beta/errordactyl.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oslabs-beta/errordactyl/issues"
+  },
+  "homepage": "https://github.com/oslabs-beta/errordactyl#readme",
+  "devDependencies": {
+    "@types/node": "^18.11.18"
+  }
+}

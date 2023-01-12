@@ -1,5 +1,7 @@
-import { endpoint, config } from '../types.ts';
-import errors from './error.ts';
+const fs = require('fs');
+
+import { endpoint, config } from '../types';
+import errors from './error';
 
 const td = (d: Uint8Array) => new TextDecoder().decode(d);
 // declare config and script globally but do not assign values outside of functions
@@ -7,12 +9,12 @@ let config: config;
 let script: string;
 
 const startScript = async ():Promise<void> =>  {
-  config = await Deno.readTextFile('./_errordactyl/config.json').then(res => JSON.parse(res));
+  config = await fs.readFile('./_errordactyl/config.json').then(res => JSON.parse(res)); // fs.readFile
   const pathToServer:string = config.serverPath;
 
-  let script = `#!/bin/bash\ndeno run -A ${pathToServer} &\nDENO_PID=$!\nsleep 2\n`;
+  let script = `#!/bin/bash\ndeno run -A ${pathToServer} &\nDENO_PID=$!\nsleep 2\n`; // update to Node File
 
-  const colorVars = 
+  const colorVars =
   `NC='\\0033[0m'
   BPURPLE='\\033[1;35m'
   BGREEN='\\033[1;32m'`;
@@ -25,7 +27,7 @@ const routeScripter = (method:string, data:Array<endpoint> | string, body?:strin
 
   Array.isArray(data)?
   method === ('GET'||'DELETE')?
-    (data.forEach((endpoint, index) => {
+    (data.forEach((endpoint, index) => { // each of the template literal HTTP requests must be rewritten to express
       const getScript = `
         \n${method}${index}=$(curl -s localhost:3000${endpoint.path})
         echo -e "\${BPURPLE}${method} to '${endpoint.path}': \${NC}\$GET${index}"
@@ -33,7 +35,7 @@ const routeScripter = (method:string, data:Array<endpoint> | string, body?:strin
       script += getScript;
     })):
     (
-      data.forEach((endpoint, index) => {
+      data.forEach((endpoint, index) => { // each of the template literal HTTP requests must be rewritten to express
         const postScript = `
           \n${method}${index}=$(curl -s -X ${method} -d '${JSON.stringify(endpoint.body)}' localhost:3000${endpoint.path})
           echo -e "\${BPURPLE}${method} to '${endpoint.path}': \${NC}\$${method}${index}"
@@ -56,13 +58,13 @@ const routeScripter = (method:string, data:Array<endpoint> | string, body?:strin
 const writeAndRun = async () => {
   script += `\nkill $DENO_PID`;
 
-  await Deno.writeTextFile('./_errordactyl/test.sh', script);
-  
+  await fs.writeFile('./_errordactyl/test.sh', script); // fs.writeFile
+
   await Deno.run({cmd: ['chmod', '+x', './_errordactyl/test.sh']}).status();
-  
+
   const p = await Deno.run({cmd: ['./_errordactyl/test.sh'], stdout:'piped', stderr:'piped'});
   await p.status();
-  
+
   console.log('%cYour server responded:%c\n', 'background-color: white', 'background-color: transparent');
   console.log(td(await p.output()).trim())
 
@@ -75,7 +77,7 @@ const writeAndRun = async () => {
 export const testAll = async () => {
   await startScript();
   const endpoints = config.endpoints;
-    
+
   for (const method in endpoints) {
     routeScripter(method, endpoints[method as keyof typeof endpoints])
   }

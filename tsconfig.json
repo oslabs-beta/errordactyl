@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES2021",
+  },
+  "files": [
+    "./types.ts",
+    "./parse/detect_endpoints.ts",
+    "./parse/find_files.ts",
+    "./parse/parse.ts",
+    "./test/class.ts",
+    "./test/error.ts",
+    "./test/test.ts",
+    "./edact.ts",
+    "./init.ts",
+  ]
+}

@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 export async function init() {
   // store user input for config file
   let path: string | null = './server/routes';
@@ -33,8 +35,8 @@ export async function init() {
     filePaths: files,
   }
 
-  await Deno.mkdir('./_errordactyl');
+  await fs.mkdir('./_errordactyl'); // fs.mkdir?
 
-  await Deno.writeTextFile('./_errordactyl/config.json', JSON.stringify(config));
+  await fs.writeFile('./_errordactyl/config.json', JSON.stringify(config)); // fs.writeFile
   console.log('Successfully generated initial config in ./_errordactyl/config.json')
 }

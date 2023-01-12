@@ -2,7 +2,7 @@
 
 // console.log(path.dirname(path.fromFileUrl(Deno.mainModule)));
 
-import { strObjType, finalObjType } from "../types.ts";
+import { strObjType, finalObjType } from "../types";
 
 export default function errors(errorMessage: string): finalObjType[] | string {
   if (!errorMessage) return "...";

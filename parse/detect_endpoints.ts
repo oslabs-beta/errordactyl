@@ -1,9 +1,9 @@
-import { methodCache, methodCacheExtended, endpoint } from '../types.ts';
-
+import { methodCache, methodCacheExtended, endpoint } from '../types';
+const fs = require('fs');
 
 // // better time complexity option
 export const detectEndpoints = async (path: string, methods: methodCache) => {
-  let file = await Deno.readTextFile(path);
+  let file = await fs.readFile(path); // replaced with Node's fs.readFile
   // strip comments from file
   file = file.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
 
@@ -20,7 +20,7 @@ export const detectEndpoints = async (path: string, methods: methodCache) => {
 }
 
 export const detectEndpointsWithParams = async (path: string, methods: methodCacheExtended) => {
-  let file = await Deno.readTextFile(path);
+  let file = await fs.readFile(path); // replaced with Node's fs.readFile
   // strip comments from file
   file = file.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
   // iterate over methods objects and match method in file

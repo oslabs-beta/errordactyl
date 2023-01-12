@@ -1,9 +1,9 @@
-import { parse as parser } from 'https://deno.land/std@0.166.0/flags/mod.ts';
-import { parse } from './parse/parse.ts';
-import { init } from './init.ts';
-import Test from './test/class.ts'
+import { parse as parser } from 'https://deno.land/std@0.166.0/flags/mod.ts'; // needs to be replaced
+import { parse } from './parse/parse';
+import { init } from './init';
+import Test from './test/class'
 
-const args = parser(Deno.args);
+const args = parser(process.argv); // process.argv in Node for CLI arguments; we also need to replace parser from denoLand
 let body = '';
 
 const test = new Test();
