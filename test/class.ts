@@ -3,7 +3,7 @@ import { config as dotenv } from "https://deno.land/x/dotenv/mod.ts";
 const env = dotenv();
 
 import { endpoint, config } from '../types.ts';
-import errors from './error.ts';
+// import errors from './error.ts';
 
 export default class Test {
   config: config;
@@ -77,7 +77,7 @@ export default class Test {
     console.log(this.td(await p.output()).trim())
 
     const STDERR = (this.td(await p.stderrOutput()).trim())
-    console.log(errors(STDERR));
+    // console.log(errors(STDERR));
   }
 
   testAll = async () => {
