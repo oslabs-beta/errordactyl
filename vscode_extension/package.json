@@ -7,15 +7,15 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
-		"viewsContainers": {
-			"activitybar": [
-				{
-					"id": "edact-sidebar",
-					"title": "Errordactyl",
-					"icon": "media/Thumbs-Up-Silhouette.png"
-				}
-			]
-		},
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "edact-sidebar",
+          "title": "Errordactyl",
+          "icon": "media/Thumbs-Up-Silhouette.png"
+        }
+      ]
+    },
     "views": {
       "test-sidebar": [
         {
@@ -35,6 +35,7 @@
   "devDependencies": {
     "@types/node": "^18.11.18",
     "@types/vscode": "^1.74.0",
+    "@vscode/webview-ui-toolkit": "^1.2.1",
     "ts-loader": "^9.4.2",
     "typescript": "^4.9.4",
     "webpack": "^5.75.0",
