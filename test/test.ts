@@ -1,8 +1,8 @@
 const fs = require('fs');
 const { spawn } = require('node:child_process');
 
-import { endpoint, config } from '../types';
-import errors from './error';
+import { endpoint, config } from '../types.ts';
+import errors from './error.ts';
 
 const td = (d: Uint8Array) => new TextDecoder().decode(d);
 // declare config and script globally but do not assign values outside of functions

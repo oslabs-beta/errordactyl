@@ -1,5 +1,3 @@
-import errors from "../test/error";
-
 const fs = require('fs');
 // read config file and store any user overrides
 // const ROUTES = config.routes || './routes'
