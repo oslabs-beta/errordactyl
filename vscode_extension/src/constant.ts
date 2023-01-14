@@ -1,10 +1,10 @@
 const SIDEBAR_WEBVIEW_ID = 'sidebar-webview';
 
-// const ELEMENT_IDS = {
-//     TRIGGER_MESSAGE_BUTTON: 'trigger-show-message-button'
-// };
+const ELEMENT_IDS = {
+    PARSE_BUTTON: 'parse-files'
+};
 
 export const EXTENSION_CONSTANT = {
     SIDEBAR_WEBVIEW_ID,
-    // ELEMENT_IDS
+    ELEMENT_IDS
 };

@@ -26,11 +26,17 @@ export class SidebarWebview implements WebviewViewProvider {
       };
       webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
       this._view = webviewView;
-    //   this.activateMessageListener();
+      this.activateMessageListener();
     }
 
-    // private activateMessageListener() {
-    // }
+    private activateMessageListener() {
+      this._view.webview.onDidReceiveMessage((message: any) => {
+        switch (message.action) {
+          case 'parse-files':
+            break;
+        }
+      })
+    }
 
     private _getHtmlForWebview(webview: Webview) {
 			// Get the local path to main script run in the webview, then convert it to a uri we can use in the webview.
