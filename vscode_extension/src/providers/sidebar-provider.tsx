@@ -2,7 +2,7 @@
 import { WebviewViewProvider, WebviewView, Webview, Uri, EventEmitter, window } from "vscode";
 import * as ReactDOMServer from "react-dom/server";
 import Sidebar from '../components/Sidebar';
-import Utils from 'utils'
+import { Utils } from "../utils";
 
 export class SidebarWebview implements WebviewViewProvider {
 
@@ -65,6 +65,7 @@ export class SidebarWebview implements WebviewViewProvider {
         ${
                         
         	ReactDOMServer.renderToString((
+            <Sidebar></Sidebar>
 					))
         }
 				<script nonce="${nonce}" type="text/javascript" src="${constantUri}"></script>
