@@ -2,8 +2,8 @@ const fs = require('fs');
 const { spawn } = require('node:child_process')
 
 // class encapsulation of test logic
-import { endpoint, config } from '../types.ts';
-import errors from './error.ts';
+import { endpoint, config } from '../types';
+import errors from './error';
 
 export default class Test {
   config: config;

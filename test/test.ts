@@ -1,8 +1,8 @@
 const fs = require('fs');
 const { spawn } = require('node:child_process');
 
-import { endpoint, config } from '../types.ts';
-import errors from './error.ts';
+import { endpoint, config } from '../types';
+import errors from './error';
 
 const td = (d: Uint8Array) => new TextDecoder().decode(d);
 // declare config and script globally but do not assign values outside of functions
@@ -63,16 +63,24 @@ const writeAndRun = async () => {
   // await Deno.writeTextFile('./_errordactyl/test.sh', script);
   await fs.writeFile('./_errordactyl/test.sh', script); // fs.writeFile
 
-  await Deno.run({cmd: ['chmod', '+x', './_errordactyl/test.sh']}).status();
+  // await Deno.run({cmd: ['chmod', '+x', './_errordactyl/test.sh']}).status();
 
-  const p = await Deno.run({cmd: ['./_errordactyl/test.sh'], stdout:'piped', stderr:'piped'});
-  await p.status();
+  await spawn('chmod', ['+x', './_errordactyl/test.sh'])
+
+  // const p = await Deno.run({cmd: ['./_errordactyl/test.sh'], stdout:'piped', stderr:'piped'});
+
+  const p = await spawn('./_errordactyl/test.sh', [], {stdio: 'pipe'})
 
   console.log('%cYour server responded:%c\n', 'background-color: white', 'background-color: transparent');
-  console.log(td(await p.output()).trim())
 
-  const STDERR = (td(await p.stderrOutput()).trim())
-  console.log(errors(STDERR));
+  p.stdout.on('data', (data) => {
+    console.log(td(data).trim())
+  });
+
+  // const STDERR = (this.td(await p.stderrOutput()).trim())
+  p.stderr.on('data', (data) => {
+    console.log(errors(td(data).trim())); // <---------------- !!!!
+  })
 }
 
 

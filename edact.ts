@@ -1,7 +1,7 @@
 // import { parse as parser } from 'https://deno.land/std@0.166.0/flags/mod.ts'; // no longer needed as we are using Node and not Deno
-import { parse } from './parse/parse.ts';
-import { init } from './init.ts';
-import Test from './test/class.ts'
+import { parse } from './parse/parse';
+import { init } from './init';
+import Test from './test/class'
 
 const yargs = require('yargs/yargs');
 

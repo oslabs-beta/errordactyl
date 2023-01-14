@@ -1,4 +1,4 @@
-import { methodCache, methodCacheExtended, endpoint } from '../types.ts';
+import { methodCache, methodCacheExtended, endpoint } from '../types';
 const fs = require('fs');
 
 // // better time complexity option
