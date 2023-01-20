@@ -1,7 +1,7 @@
 // class implementation of sidebar view provider
 import { WebviewViewProvider, WebviewView, Webview, Uri, EventEmitter, window } from "vscode";
 import * as ReactDOMServer from "react-dom/server";
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../containers/Sidebar';
 import { Utils } from "../utils";
 
 export class SidebarWebview implements WebviewViewProvider {

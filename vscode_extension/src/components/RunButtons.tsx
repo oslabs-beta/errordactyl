@@ -8,8 +8,8 @@ interface RunBtnProps {
 export default function RunButtons() {
   return (
     <div>
-      <VSCodeButton>Run All</VSCodeButton>
-      <VSCodeButton>Run Selected</VSCodeButton>
+      <VSCodeButton appearance="secondary">Run All</VSCodeButton>
+      <VSCodeButton appearance="secondary">Run Selected</VSCodeButton>
     </div>
     
   )

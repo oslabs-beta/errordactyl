@@ -1,4 +1,4 @@
-import { VSCodeTextArea, VSCodeTextField } from '@vscode/webview-ui-toolkit/react'
+import { VSCodeTextArea, VSCodeTextField, VSCodeButton } from '@vscode/webview-ui-toolkit/react'
 
 interface ConfigProps {
   path: string
@@ -12,6 +12,7 @@ export default function Config({ path }: ConfigProps ) {
     <div>
       <VSCodeTextField placeholder={path}>Endpoint URL</VSCodeTextField>
       <VSCodeTextArea>Request Body</VSCodeTextArea>
+      <VSCodeButton appearance="primary">Save</VSCodeButton>
     </div>
   )
 }

@@ -1,4 +1,7 @@
+export type methodType = "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+
 export interface endpoint {
+  method: methodType,
   path: string,
   // params?: RegExpMatchArray | null,
   body?: Record<string, unknown>,
