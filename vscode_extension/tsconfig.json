@@ -1,13 +1,14 @@
 {
 	"compilerOptions": {
 		"module": "commonjs",
-		"target": "es2020",
-		"lib": ["es2020", "dom"],
-		"outDir": "out",
+		"target": "es6",
+		"lib": ["es6", "dom"],
+		"outDir": "dist",
 		"sourceMap": true,
 		"strict": true,
-		"rootDir": "/",
-    	"jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": "./src",
+    "importHelpers": true
 	},
-	"exclude": ["node_modules", ".vscode-test"]
+  "files": ["src/extension.ts", "src/constant.ts", "src/providers/sidebar-provider.tsx"]
 }

@@ -1,4 +1,4 @@
-const SIDEBAR_WEBVIEW_ID = 'sidebar-webview';
+const SIDEBAR_WEBVIEW_ID = 'edact.mainView';
 
 const ELEMENT_IDS = {
     PARSE_BUTTON: 'parse-files'

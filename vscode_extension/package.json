@@ -1,23 +1,26 @@
 {
   "name": "vscode_extension",
   "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
   "description": "vscode extension version of errordactyl",
   "activationEvents": [
-    "onView:webviewTest.testView"
+    "onView:edact.mainView"
   ],
-  "main": "./out/extension.js",
+  "main": "./dist/extension.js",
   "contributes": {
     "viewsContainers": {
       "activitybar": [
         {
           "id": "edact-sidebar",
           "title": "Errordactyl",
-          "icon": "media/Thumbs-Up-Silhouette.png"
+          "icon": "./media/Thumbs-Up-Silhouette.png"
         }
       ]
     },
     "views": {
-      "test-sidebar": [
+      "edact-sidebar": [
         {
           "type": "webview",
           "id": "edact.mainView",
@@ -28,14 +31,20 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "npm run tsc -p ./"
+    "compile": "tsc -p ./",
+    "build": "webpack",
+    "watch": "tsc -w -p ./"
   },
   "author": "danger noodles",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-react": "^7.18.6",
     "@types/node": "^18.11.18",
     "@types/vscode": "^1.74.0",
     "@vscode/webview-ui-toolkit": "^1.2.1",
+    "babel-loader": "^9.1.2",
     "ts-loader": "^9.4.2",
     "typescript": "^4.9.4",
     "webpack": "^5.75.0",
@@ -48,9 +57,9 @@
     "react-dom": "^18.2.0"
   },
   "_moduleAliases": {
-    "utils": "out/utils",
-    "providers": "out/providers",
-    "components": "out/components",
-    "constant": "out/constant.js"
+    "utils": "dist/utils",
+    "providers": "dist/providers",
+    "components": "dist/components",
+    "constant": "dist/constant.js"
   }
 }

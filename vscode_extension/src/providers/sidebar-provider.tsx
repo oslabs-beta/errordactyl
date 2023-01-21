@@ -1,7 +1,6 @@
 // class implementation of sidebar view provider
 import { WebviewViewProvider, WebviewView, Webview, Uri, EventEmitter, window } from "vscode";
-import * as ReactDOMServer from "react-dom/server";
-import Sidebar from '../containers/Sidebar';
+// import * as ReactDOMServer from "react-dom/server";
 import { Utils } from "../utils";
 
 export class SidebarWebview implements WebviewViewProvider {
@@ -42,41 +41,35 @@ export class SidebarWebview implements WebviewViewProvider {
 			// Get the local path to main script run in the webview, then convert it to a uri we can use in the webview.
 			// Script to handle user action
 			const scriptUri = webview.asWebviewUri(
-				Uri.joinPath(this.extensionPath, "script", "app-webview-provider.js")
+				Uri.joinPath(this.extensionPath, "dist", "bundle.js")
 			);
 			const constantUri = webview.asWebviewUri(
 				Uri.joinPath(this.extensionPath, "script", "constant.js")
 			);
 			// CSS file to handle styling
 			const styleUri = webview.asWebviewUri(
-				Uri.joinPath(this.extensionPath, "script", "app-webview-provider.css")
+				Uri.joinPath(this.extensionPath, "script", "sidebar-webview.css")
 			);
 
 		// Use a nonce to only allow a specific script to be run.
 			const nonce = Utils.getNonce();
 
-			return `<html>
+			return `<!DOCTYPE html>
+			<html lang="en">
 			<head>
-        <meta charSet="utf-8"/>
-        <meta http-equiv="Content-Security-Policy" 
-      	content="default-src 'none';
-        img-src vscode-resource: https:;
-        font-src ${webview.cspSource};
-        style-src ${webview.cspSource} 'unsafe-inline';
-        script-src 'nonce-${nonce}';">             
+        <meta charSet="utf-8"/>            
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="${styleUri}" rel="stylesheet">
       </head>
       <body>
-        ${
-                        
-        	ReactDOMServer.renderToString((
-            <Sidebar></Sidebar>
-					))
-        }
-				<script nonce="${nonce}" type="text/javascript" src="${constantUri}"></script>
+			<div id="root">
+				<p>something</p>
+				<script nonce="${nonce}" type="text/javascript" src="${constantUri}"></script> 
 				<script nonce="${nonce}" src="${scriptUri}"></script>
+			</div>
+				
 			</body>
     	</html>`;
     }
 }
+
+{/* */}

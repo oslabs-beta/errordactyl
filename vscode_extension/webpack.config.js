@@ -1,12 +1,12 @@
 const path = require('path');
 
 module.exports = {
+  mode: "development",
   target: 'node',
-  entry: './src/extension.ts',
+  entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, out),
-    filename: 'extension.js',
-    libraryTarget: 'commonjs2',
+    path: path.resolve(__dirname, "dist"),
+    filename: 'bundle.js',
   },
   externals: {
     vscode: 'commonjs vscode'
@@ -24,6 +24,16 @@ module.exports = {
   plugins: [],
   module: {
     rules: [
+			{
+				test: /\.(jsx|js)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
+        },
+			},
 			{
 				test: /\.(ts|tsx)$/,
 				exclude: /node_modules/,

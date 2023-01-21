@@ -9,9 +9,9 @@ interface RoutesProps {
 
 export default function Routes({ endpoints }: RoutesProps) {
   // render array of endpoint components
-  const routes = endpoints.map(endpoint => {
+  const routes = endpoints.map((endpoint, i) => {
     return (
-      <Endpoint endpoint={endpoint}/>
+      <Endpoint endpoint={endpoint} key={i}/>
     )
   })
   return (

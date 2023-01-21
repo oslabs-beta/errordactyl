@@ -1,3 +1,4 @@
+// import React from 'react';
 import { VSCodeTextArea, VSCodeTextField, VSCodeButton } from '@vscode/webview-ui-toolkit/react'
 
 interface ConfigProps {
