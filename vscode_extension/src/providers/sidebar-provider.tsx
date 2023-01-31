@@ -1,5 +1,5 @@
 // class implementation of sidebar view provider
-import { WebviewViewProvider, WebviewView, Webview, Uri, EventEmitter, window } from "vscode";
+import { WebviewViewProvider, WebviewView, Webview, Uri, EventEmitter, window, workspace } from "vscode";
 // import * as ReactDOMServer from "react-dom/server";
 import { Utils } from "../utils";
 
@@ -29,9 +29,17 @@ export class SidebarWebview implements WebviewViewProvider {
     }
 
     private activateMessageListener() {
-      this._view.webview.onDidReceiveMessage((message: any) => {
+      this._view.webview.onDidReceiveMessage(async (message: any) => {
         switch (message.action) {
           case 'parse-files':
+            break;
+          case 'read-something-test':
+            const workspacePath = workspace.workspaceFolders[0].uri.fsPath;
+            // console.log("workspace", workspace.workspaceFolders[0].uri.fsPath);
+            window.showInformationMessage(message.action);
+            const file = await workspace.fs.readFile(Uri.file(workspacePath + "/server/server.js")).then((data) => data.toString());
+            console.log(file);
+            window.showInformationMessage(file);
             break;
         }
       })
@@ -63,6 +71,7 @@ export class SidebarWebview implements WebviewViewProvider {
       <body>
 			<div id="root">
 				<p>something</p>
+        <script> const vscode = acquireVsCodeApi(); </script>
 				<script nonce="${nonce}" type="text/javascript" src="${constantUri}"></script> 
 				<script nonce="${nonce}" src="${scriptUri}"></script>
 			</div>

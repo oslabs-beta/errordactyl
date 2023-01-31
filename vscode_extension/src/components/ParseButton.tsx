@@ -1,8 +1,19 @@
 import { VSCodeButton } from '@vscode/webview-ui-toolkit/react';
-import { EXTENSION_CONSTANT } from '../constant';
+
+interface vscode {
+  postMessage(message: any): void;
+}
+
+declare const vscode: vscode;
 
 export default function ParseButton() {
+  
+  const testHandler = () => {
+    // const vscode = acquireVsCodeApi();
+    vscode.postMessage({action: "read-something-test"});
+  }
+
   return (
-    <VSCodeButton appearance="primary" id={EXTENSION_CONSTANT.ELEMENT_IDS.PARSE_BUTTON}>Parse</VSCodeButton>
+    <VSCodeButton appearance="primary" onClick={testHandler}>Parse</VSCodeButton>
   )
 }
