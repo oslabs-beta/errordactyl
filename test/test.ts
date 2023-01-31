@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs/promises');
 const { spawn } = require('node:child_process');
 
 import { endpoint, config } from '../types';

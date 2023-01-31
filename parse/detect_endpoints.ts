@@ -1,5 +1,5 @@
 import { methodCache, methodCacheExtended, endpoint } from '../types';
-const fs = require('fs');
+const fs = require('fs/promises');
 
 // // better time complexity option
 export const detectEndpoints = async (path: string, methods: methodCache) => {

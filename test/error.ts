@@ -5,6 +5,8 @@
 import { strObjType, finalObjType } from "../types";
 
 export default function errors(errorMessage: string): finalObjType[] | string {
+  console.log('error function invoked, hello hello hello')
+
   if (!errorMessage) return "...";
 
       const arrayOfRegex = [
@@ -127,6 +129,5 @@ export default function errors(errorMessage: string): finalObjType[] | string {
           arrayOfUsefulErrorInformation.push(finalObj);
         }
       }
-      console.log('it still works after break week!')
       return arrayOfUsefulErrorInformation;
 }

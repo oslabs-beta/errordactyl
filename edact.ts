@@ -6,17 +6,18 @@ import Test from './test/class'
 const yargs = require('yargs/yargs');
 
 // const args = parser(Deno.args);
-const args = yargs(process.argv); // process.argv in Node for CLI arguments and using yargs to parse the arguments into an object
+const [,,...args] = yargs(process.argv).argv._; // process.argv in Node for CLI arguments and using yargs to parse the arguments into an object
 let body = '';
 
 const test = new Test();
+console.log('destructured yargs array', args)
 
 //handle arguments
-switch (args._[0]) {
-  case 'init':
+switch (true) {
+  case (args.includes('init')):
     init();
     break;
-  case undefined:
+  case (args.length === 0):
     if (args.b||args.body) body += (args.b||args.body);
     if (args.p||args.post) test.testOne('POST', args.p||args.post, body);
     else if (args.u||args.patch||args.put) test.testOne(args.patch?'PATCH':'PUT', args.u||args.patch||args.put, body);
@@ -26,5 +27,4 @@ switch (args._[0]) {
     else test.testAll();
     break;
 }
-
 

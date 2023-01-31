@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs/promises');
 // read config file and store any user overrides
 // const ROUTES = config.routes || './routes'
 

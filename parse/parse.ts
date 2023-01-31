@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs/promises');
 
 import findFiles from './find_files';
 import { detectEndpoints, detectEndpointsWithParams } from './detect_endpoints';
