@@ -1,5 +1,5 @@
 const fs = require('fs/promises');
-const { spawn } = require('node:child_process')
+const { exec, spawn } = require('node:child_process')
 
 // class encapsulation of test logic
 import { endpoint, config } from '../types';
@@ -21,7 +21,7 @@ export default class Test {
     this.config = await fs.readFile('./_errordactyl/config.json').then(res => JSON.parse(res)); // fs.readFile
     const pathToServer:string = this.config.serverPath;
     // this.script = `#!/bin/bash\ndeno run --allow-net ${pathToServer} &\nDENO_PID=$!\nsleep .5\n`; // change CLI script command to use node
-    this.script = `#!/bin/bash\necho 'i am inside of the shell'\nnode ${pathToServer} &\nDENO_PID=$!\nsleep .5\necho 'i am also inside of the shell'\n`; // change CLI script command to use node
+    this.script = `#!/bin/bash\nnode ${pathToServer} &\nDENO_PID=$!\nsleep .5\n`; // change CLI script command to use node
     const colorVars =
     `NC='\\0033[0m'
     BPURPLE='\\033[1;35m'
@@ -64,7 +64,7 @@ export default class Test {
 
   writeAndRun = async () => {
     console.log('writeAndRun Method invoked');
-    this.script += `\nkill $DENO_PID`; // Change to Node's specific version of PID (unknown)
+    // this.script += `\nkill $DENO_PID`;
 
     // await Deno.writeTextFile('./_errordactyl/test.sh', this.script);
     await fs.writeFile('./_errordactyl/test.sh', this.script); // fs.writeFile
@@ -72,20 +72,24 @@ export default class Test {
     // await Deno.run({cmd: ['chmod', '+x', './_errordactyl/test.sh']}).status(); // figure out Node subprocess and re-wrtie
     // console.log('first subprocess');
     await spawn('chmod', ['+x', './_errordactyl/test.sh']); // figure out Node subprocess and re-write
+    // await exec('chmod', ['+x', './_errordactyl/test.sh'], () => console.log('finished'))
+    console.log('%cYour server responded:%c\n', 'background-color: white', 'background-color: transparent');
 
     // const p = await Deno.run({cmd: ['./_errordactyl/test.sh'], stdout:'piped', stderr:'piped'}); // figure out Node subprocess and re-write
     // console.log('second subprocess');
-    const p = await spawn('./_errordactyl/test.sh', [], {stdio: 'pipe'})
+    const p = await spawn('./_errordactyl/test.sh', [], {stdio: 'pipe'});
+    // const p = await exec('./_errordactyl/test.sh', [], () => console.log('finished'));
     console.log('%cYour server responded:%c\n', 'background-color: white', 'background-color: transparent');
+    // console.log(p);
 
-    p.stdout.on('data0', (data) => {
+    p.stdout.on('data', (data) => {
       console.log('data1', this.td(data).trim())
     });
 
     // const STDERR = (this.td(await p.stderrOutput()).trim())
-    p.stderr.on('errorData0', (data) => {
-      console.log('errorData1', data);
-      console.log('errorData2', errors(this.td(data).trim())); // <---------------- !!!!
+    p.stderr.on('data', (data) => {
+      console.log('incomingErrorDataFromPipeline', this.td(data).trim());
+      console.log('errorDataReturnedFromErrorFunctions', errors(this.td(data).trim())); // <---------------- !!!!
     })
   }
 

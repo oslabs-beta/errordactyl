@@ -6,7 +6,7 @@ import { strObjType, finalObjType } from "../types";
 
 export default function errors(errorMessage: string): finalObjType[] | string {
   console.log('error function invoked, hello hello hello')
-  console.log('errorMessage', errorMessage);
+  console.log('errorFunctionInputArgument', errorMessage);
   if (!errorMessage) return "...";
 
       const arrayOfRegex = [
