@@ -3,6 +3,8 @@ import { WebviewViewProvider, WebviewView, Webview, Uri, EventEmitter, window, w
 // import * as ReactDOMServer from "react-dom/server";
 import { Utils } from "../utils";
 
+//@ts-ignore
+
 export class SidebarWebview implements WebviewViewProvider {
 
     constructor(
@@ -34,12 +36,11 @@ export class SidebarWebview implements WebviewViewProvider {
           case 'parse-files':
             break;
           case 'read-something-test':
+            // TODO: write handler for unopened workspace
             const workspacePath = workspace.workspaceFolders[0].uri.fsPath;
-            // console.log("workspace", workspace.workspaceFolders[0].uri.fsPath);
-            window.showInformationMessage(message.action);
             const file = await workspace.fs.readFile(Uri.file(workspacePath + "/server/server.js")).then((data) => data.toString());
             console.log(file);
-            window.showInformationMessage(file);
+            this._view.webview.postMessage({name: 'test', data: file})
             break;
         }
       })
@@ -71,7 +72,7 @@ export class SidebarWebview implements WebviewViewProvider {
       <body>
 			<div id="root">
 				<p>something</p>
-        <script> const vscode = acquireVsCodeApi(); </script>
+        <script> const vscode = acquireVsCodeApi() </script>
 				<script nonce="${nonce}" type="text/javascript" src="${constantUri}"></script> 
 				<script nonce="${nonce}" src="${scriptUri}"></script>
 			</div>

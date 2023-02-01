@@ -13,6 +13,9 @@ export function activate(context: vscode.ExtensionContext) {
 	let view = vscode.window.registerWebviewViewProvider(
 		EXTENSION_CONSTANT.SIDEBAR_WEBVIEW_ID,
 		SidebarWebViewProvider,
+		{
+			webviewOptions: {retainContextWhenHidden: true,}
+		}
 	);
 	context.subscriptions.push(view);
 };
