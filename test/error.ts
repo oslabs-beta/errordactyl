@@ -32,6 +32,8 @@ export default function errors(errorMessage: string): finalObjType[] | string {
 
       }
 
+      console.log('arrayErrorStack', arrayErrorStack)
+
       // Loop through the array of error stack strings and parse each string into readable, usable information
       for (let i = 0; i < arrayErrorStack.length; i++) {
 

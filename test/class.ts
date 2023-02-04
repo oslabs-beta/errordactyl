@@ -17,6 +17,7 @@ export default class Test {
   td = (d: Uint8Array) => new TextDecoder().decode(d);
 
   startScript = async ():Promise<void> =>  {
+    console.log('startScript method in ./test/class.ts');
     // this.config = await Deno.readTextFile('./_errordactyl/config.json').then(res => JSON.parse(res));
     this.config = await fs.readFile('./_errordactyl/config.json').then(res => JSON.parse(res)); // fs.readFile
     const pathToServer:string = this.config.serverPath;
@@ -32,6 +33,7 @@ export default class Test {
   }
 
   routeScripter = (method:string, data:Array<endpoint> | string, body?:string) => {
+  console.log('routeScripter method in ./test/class.ts');
   Array.isArray(data)?
   method === ('GET'||'DELETE')?
     (data.forEach((endpoint, index) => {
@@ -71,7 +73,7 @@ export default class Test {
 
     // await Deno.run({cmd: ['chmod', '+x', './_errordactyl/test.sh']}).status(); // figure out Node subprocess and re-wrtie
     // console.log('first subprocess');
-    await spawn('chmod', ['+x', './_errordactyl/test.sh']); // figure out Node subprocess and re-write
+    const q = await spawn('chmod', ['+x', './_errordactyl/test.sh']); // figure out Node subprocess and re-write
     // await exec('chmod', ['+x', './_errordactyl/test.sh'], () => console.log('finished'))
     console.log('%cYour server responded:%c\n', 'background-color: white', 'background-color: transparent');
 
@@ -79,21 +81,25 @@ export default class Test {
     // console.log('second subprocess');
     const p = await spawn('./_errordactyl/test.sh', [], {stdio: 'pipe'});
     // const p = await exec('./_errordactyl/test.sh', [], () => console.log('finished'));
-    console.log('%cYour server responded:%c\n', 'background-color: white', 'background-color: transparent');
+    // console.log('%cYour server responded:%c\n', 'background-color: white', 'background-color: transparent');
     // console.log(p);
 
     p.stdout.on('data', (data) => {
-      console.log('data1', this.td(data).trim())
+      // console.log('data1', this.td(data).trim())
+      data;
     });
+
+    p.stdout.on('close', () => console.log('p has closed'));
 
     // const STDERR = (this.td(await p.stderrOutput()).trim())
     p.stderr.on('data', (data) => {
-      console.log('incomingErrorDataFromPipeline', this.td(data).trim());
+      console.log("i've received error data")
       console.log('errorDataReturnedFromErrorFunctions', errors(this.td(data).trim())); // <---------------- !!!!
     })
   }
 
   testAll = async () => {
+    console.log('testAll invoked in ./test/class.ts');
     await this.startScript();
     const endpoints = this.config.endpoints;
 
@@ -105,6 +111,7 @@ export default class Test {
   }
 
   testOne = async (method:string, endpoint:string, body?:string) => {
+    console.log('testOne invoked in class.ts')
     await this.startScript();
     this.routeScripter(method, endpoint, body);
 

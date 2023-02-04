@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 function errors(errorMessage) {
     console.log('error function invoked, hello hello hello');
-    console.log('errorMessageInputArgument', errorMessage);
+    console.log('errorFunctionInputArgument', errorMessage);
     if (!errorMessage)
         return "...";
     const arrayOfRegex = [
@@ -21,6 +21,7 @@ function errors(errorMessage) {
             stringElement.split('\\n').forEach((element) => arrayErrorStack.push(element.replaceAll('    at ', '')));
         });
     }
+    console.log('arrayErrorStack', arrayErrorStack);
     // Loop through the array of error stack strings and parse each string into readable, usable information
     for (let i = 0; i < arrayErrorStack.length; i++) {
         const finalObj = {
