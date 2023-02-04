@@ -8,11 +8,13 @@ const fs = require('fs/promises');
 // error handling for this step: check if provided path is a STRING => is a folder or a file in the directory (Deno.errors.NotFound) => does the folder contain routes
 
 const findFiles = async (path: string) => {
+  console.log('findFiles path', path)
   try {
     // check if path is a folder
 
     // const fileInfo = await Deno.stat(path);
     const fileInfo = await fs.stat(path); // node equivalent is fs.stat() but Node docs say using this before any other file manipulation is not recommended
+    console.log('fileInfo', fileInfo);
     if (fileInfo.isDirectory) { // node docs say that isDirectory is a method definition that is invoked to return a boolean
       // console.log('this is a directory');
     } else {
@@ -24,8 +26,9 @@ const findFiles = async (path: string) => {
 
     const readDirs = async (folder: string) => {
       //for await (const dirEntry of Deno.readDir(folder)) {
-        for await (const dirEntry of fs.readDir(folder)) { //use fs.readDir
-            const entryPath = `${folder}/${dirEntry.name}`; // double check if the name property exists on dirEntry in Node
+        for await (const dirEntry of await fs.readdir(folder)) { //use fs.readDir
+            console.log('dirEntry', dirEntry);
+            const entryPath = `${folder}/${dirEntry}`; // double check if the name property exists on dirEntry in Node
             // if we get to a directory call readDirs on it
             if (dirEntry.isDirectory) {
                 await readDirs(entryPath);
