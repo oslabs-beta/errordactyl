@@ -6,7 +6,7 @@ try {
 import * as vscode from "vscode";
 import { EXTENSION_CONSTANT } from "./constant";
 import { SidebarWebview } from "./providers/sidebar-provider";
-import { LocalStorageWrapper } from "./api-wrapper";
+import { LocalStorageWrapper } from './localStorage'
 
 export function activate(context: vscode.ExtensionContext) {
 

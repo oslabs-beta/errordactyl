@@ -5,17 +5,17 @@ import { endpoint } from '../../types';
 import { useState, useEffect } from 'react';
 // mock data for testing purposes
 import { MOCK_ROUTES } from '../data/api';
-// main app to display in the sidebar provider html
-import { VSCodeAPI } from '../api-wrapper';
+import { VSCodeAPI } from '../vsCodeApi';
 
+// main app to display in the sidebar provider html
 export default function SideBar() {
   const [routes, setRoutes] = useState<endpoint[]>([]);
   const [selected, setSelected] = useState([]);
   const [stateTest, setStateTest] = useState('test');
 
-  // function to retrieve endpoints from... somewhere
+  // function to retrieve endpoints from extension storage
   const getRoutes = () => {
-    setRoutes(MOCK_ROUTES);
+    VSCodeAPI.postMessage({action: 'get-initial-state'});
   };
   // function to send requests
   const runRoutes = () => {
@@ -24,23 +24,20 @@ export default function SideBar() {
 
   //useEffects to listener
   useEffect(() => {
-    window.addEventListener('message', event => {
+    VSCodeAPI.onMessage((event) => {
       console.log('message heard');
       const message = event.data;
-  
-      switch (message.name) {
-        case 'test':
+
+      switch (message.action) {
+        case 'parse':
           console.log('message received by the sidebar');
-          VSCodeAPI.setState(message.data);
-          setStateTest(VSCodeAPI.getState());
-          break;
-        case 'get-routes':
-          getRoutes();
+          setStateTest(message.data);
           break;
       }
     });
+    // retrieve initial state
+    getRoutes();
   }, [])
-
 
   return (
     <div>

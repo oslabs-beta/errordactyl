@@ -1,5 +1,3 @@
-import { Memento } from "vscode";
-
 // interface for vscode class instance
 interface vscode {
 	postMessage(message: any): void;
@@ -37,18 +35,6 @@ class VSCodeWrapper {
 	public setState(newState: any): void {
 		this.vscodeApi.setState(newState);
 	}
-}
-
-export class LocalStorageWrapper {
-    constructor(private storage: Memento) {}
-
-    public getValue<T>(key: string) : T|undefined {
-        return this.storage.get<T>(key);
-    }
-
-    public setValue<T>(key: string, value: T){
-        this.storage.update(key, value);
-    }
 }
 
 export const VSCodeAPI: VSCodeWrapper = new VSCodeWrapper();
