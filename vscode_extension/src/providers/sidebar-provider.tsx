@@ -34,21 +34,20 @@ export class SidebarWebview implements WebviewViewProvider {
     private activateMessageListener() {
       this._view.webview.onDidReceiveMessage(async (message: any) => {
         switch (message.action) {
-          case 'parse-files':
-            break;
           case 'parse':
-            // TODO: write handler for unopened workspace
             if (workspace.workspaceFolders !== undefined) {
-            const workspacePath = workspace.workspaceFolders[0].uri.fsPath;
-            const file = await workspace.fs.readFile(Uri.file(workspacePath + "/server/server.js")).then((data) => data.toString());
-            this.workspaceStorage.setValue("file", file);
-            this._view.webview.postMessage({action: 'parse', data: file})
+
             }
             break;
           case 'get-initial-state':
-            // get state and send to webview
-            const state = this.workspaceStorage.getValue("file");
-            this._view.webview.postMessage({action: 'parse', data: state});
+            // retrieve any data already in state (check for config)
+            break;
+          case 'config':
+            // store config in state
+            break;
+
+          case 'test-routes':
+            // generate script and return responses from server
             break;
         }
       })
