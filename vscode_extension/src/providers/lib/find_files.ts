@@ -1,4 +1,5 @@
 const fs = require('fs/promises');
+import { window } from "vscode";
 // read config file and store any user overrides
 // const ROUTES = config.routes || './routes'
 
@@ -10,13 +11,11 @@ const fs = require('fs/promises');
 const findFiles = async (path: string) => {
   try {
     // check if path is a folder
-
-    // const fileInfo = await Deno.stat(path);
     const fileInfo = await fs.stat(path); // node equivalent is fs.stat() but Node docs say using this before any other file manipulation is not recommended
     if (fileInfo.isDirectory) { // node docs say that isDirectory is a method definition that is invoked to return a boolean
       // console.log('this is a directory');
     } else {
-      console.log('must provide a valid directory');
+      window.showErrorMessage('must provide a valid directory');
       return;
     }
 

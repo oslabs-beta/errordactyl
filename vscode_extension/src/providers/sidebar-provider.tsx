@@ -1,7 +1,8 @@
 // class implementation of sidebar view provider
-import { WebviewViewProvider, WebviewView, Webview, Uri, EventEmitter, workspace } from "vscode";
+import { WebviewViewProvider, WebviewView, Webview, Uri, EventEmitter, workspace, window } from "vscode";
 // import * as ReactDOMServer from "react-dom/server";
 import { Utils } from "../utils";
+import { parse } from "./lib/parse";
 
 //@ts-ignore
 
@@ -36,8 +37,14 @@ export class SidebarWebview implements WebviewViewProvider {
         switch (message.action) {
           case 'parse':
             if (workspace.workspaceFolders !== undefined) {
-
-            }
+							// get config from state
+							const config = this.workspaceStorage.getState("config");
+							// returns array of endpoint objects
+							const routes = parse(config);
+							this.workspaceStorage.setState("routes", routes);
+            } else {
+							window.showInformationMessage('No directory currently opened');
+						}
             break;
           case 'get-initial-state':
             // retrieve any data already in state (check for config)

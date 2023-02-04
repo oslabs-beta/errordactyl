@@ -26,7 +26,7 @@ export default function Endpoint({ endpoint }: EndpointProps) {
       <span className="endpoint-label">{endpoint.method}: </span>{endpoint.path}
       <div className="endpoint-btns">
         <VSCodeButton onClick={showConfig}>Config</VSCodeButton>
-        {configVisible && <Config path={endpoint.path}/>}
+        {configVisible && <Config path={endpoint.path} body={endpoint.body}/>}
         <VSCodeButton onClick={showResponse}>Response</VSCodeButton>
         {responseVisible && <Response />}
       </div>

@@ -5,15 +5,16 @@ export interface endpoint {
   path: string,
   // params?: RegExpMatchArray | null,
   body?: Record<string, unknown>,
-  headers?: Record<string, unknown>
+  headers?: Record<string, unknown>,
+	response?: string
 }
 
 export interface methodCacheExtended {
-  GET: endpoint[],
-  POST: endpoint[],
-  PUT: endpoint[],
-  PATCH: endpoint[],
-  DELETE: endpoint[]
+  "GET": endpoint[],
+  "POST": endpoint[],
+  "PUT": endpoint[],
+  "PATCH": endpoint[],
+  "DELETE": endpoint[]
 }
 
 export interface methodCache {
@@ -63,6 +64,6 @@ export interface config {
   serverPath: string,
   routesPath: string,
   filePaths: string[],
-  endpoints: methodCacheExtended
+  endpoints?: endpoint[],
   PORT?: number
 }
