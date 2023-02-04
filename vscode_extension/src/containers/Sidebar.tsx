@@ -1,7 +1,8 @@
 import Routes from './Routes';
 import ParseButton from '../components/ParseButton';
 import RunButtons from '../components/RunButtons';
-import { endpoint } from '../../types';
+import SetupWizard from '../components/SetupWizard';
+import { endpoint, config } from '../../types';
 import { useState, useEffect } from 'react';
 // mock data for testing purposes
 import { MOCK_ROUTES } from '../data/api';
@@ -12,6 +13,7 @@ export default function SideBar() {
   const [routes, setRoutes] = useState<endpoint[]>([]);
   const [selected, setSelected] = useState([]);
   const [stateTest, setStateTest] = useState('test');
+  const [config, setConfig] = useState(false);
 
   // function to retrieve endpoints from extension storage
   const getRoutes = () => {
@@ -29,10 +31,9 @@ export default function SideBar() {
       const message = event.data;
 
       switch (message.action) {
-        case 'parse':
-          console.log('message received by the sidebar');
-          setStateTest(message.data);
-          break;
+        case 'config':
+          setConfig(true);
+          setRoutes(message.data.routes);
       }
     });
     // retrieve initial state
@@ -40,11 +41,8 @@ export default function SideBar() {
   }, [])
 
   return (
-    <div>
-      {routes.length ? <Routes endpoints={routes}/> : <p>No routes configured.</p>}
-      <ParseButton />
-      <RunButtons />
-      {stateTest}
+    <div className='sidebar'>
+      {config ? <ParseButton setConfig={setConfig}/> : <SetupWizard/>}
     </div>
   )
 }

@@ -62,7 +62,7 @@ export interface testMethods {
 export interface config {
   serverPath: string,
   routesPath: string,
-  filePaths: string[],
-  endpoints: methodCacheExtended
+  filePaths?: string[],
+  endpoints?: methodCacheExtended
   PORT?: number
 }

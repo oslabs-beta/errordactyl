@@ -1,11 +1,12 @@
 import { VSCodeButton } from '@vscode/webview-ui-toolkit/react';
 import { VSCodeAPI } from '../vsCodeApi';
+import {config} from "../../types"
 
-export default function ParseButton() {
+export default function ParseButton({setConfig}) {
   
   const testHandler = () => {
-    // const vscode = acquireVsCodeApi();
-    VSCodeAPI.postMessage({action: "parse"});
+    setConfig(false);
+    VSCodeAPI.postMessage({action: "reset"});
   }
 
   return (

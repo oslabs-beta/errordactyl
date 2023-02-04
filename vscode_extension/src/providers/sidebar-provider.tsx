@@ -41,14 +41,26 @@ export class SidebarWebview implements WebviewViewProvider {
             break;
           case 'get-initial-state':
             // retrieve any data already in state (check for config)
+            let config = this.workspaceStorage.getValue("config");
+
+            if (config) {
+              console.log("config data in workspaceStorage (initial state)", config);
+              this._view.webview.postMessage({action: "config", data: {routes: config.routes}});
+            }
             break;
           case 'config':
             // store config in state
+            this.workspaceStorage.setValue("config", message.data);
+            console.log("config data in workspaceStorage (setting state)", this.workspaceStorage.getValue("config"))
+            this._view.webview.postMessage({action: "config"})
             break;
 
           case 'test-routes':
             // generate script and return responses from server
             break;
+          case 'reset' :
+            this.workspaceStorage.setValue("config", undefined);
+            console.log("storage reset, config is now:", this.workspaceStorage.getValue("config"));
         }
       })
     }
@@ -59,9 +71,7 @@ export class SidebarWebview implements WebviewViewProvider {
 			const scriptUri = webview.asWebviewUri(
 				Uri.joinPath(this.extensionPath, "dist", "bundle.js")
 			);
-			const constantUri = webview.asWebviewUri(
-				Uri.joinPath(this.extensionPath, "script", "constant.js")
-			);
+
 			// CSS file to handle styling
 			const styleUri = webview.asWebviewUri(
 				Uri.joinPath(this.extensionPath, "script", "sidebar-webview.css")
@@ -75,12 +85,11 @@ export class SidebarWebview implements WebviewViewProvider {
 			<head>
         <meta charSet="utf-8"/>            
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="${styleUri}"/>
       </head>
       <body>
 			<div id="root">
-				<p>something</p>
-        <script> const vscode = acquireVsCodeApi() </script>
-				<script nonce="${nonce}" type="text/javascript" src="${constantUri}"></script> 
+        <script> const vscode = acquireVsCodeApi() </script> 
 				<script nonce="${nonce}" src="${scriptUri}"></script>
 			</div>
 				
