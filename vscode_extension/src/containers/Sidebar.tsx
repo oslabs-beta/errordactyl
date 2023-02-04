@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 // mock data for testing purposes
 import { MOCK_ROUTES } from '../data/api';
 // main app to display in the sidebar provider html
-import { VSCodeAPI } from '../vscodeapi';
+import { VSCodeAPI } from '../api-wrapper';
 
 export default function SideBar() {
   const [routes, setRoutes] = useState<endpoint[]>([]);
