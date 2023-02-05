@@ -46,6 +46,7 @@ export default function SideBar() {
 
   return (
     <div>
+      {routes && <Routes endpoints={routes}/>}
       {configInit? <ParseButton setConfigInit={setConfigInit}/> : <SetupWizard />}
     </div>
   )

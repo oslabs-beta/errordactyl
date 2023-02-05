@@ -1,7 +1,6 @@
 const fs = require('fs/promises');
 import { window, Uri, WorkspaceFolder } from "vscode";
 
-import findFiles from './find_files';
 import fileFinder from './filefinder';
 import { detectEndpoints } from './detect_endpoints';
 import { endpoint, config } from '../../../types';
@@ -15,13 +14,16 @@ export async function parse(config: config, folder: WorkspaceFolder) {
 
 	if (files) config.filePaths = files;
 
-	const routes: endpoint[] = [];
+  // new approach
+  const routes: endpoint[] | undefined = await detectEndpoints(files)
+
+	// const routes: endpoint[] = [];
   // use filePaths array to grab routes
   // iterate over config.filePaths
-  files?.forEach((file: Uri) => {
+  // files?.forEach((file: Uri) => {
     // adds to array of endpoints as each file is read
-    detectEndpoints(file, routes);
-  })
+    // detectEndpoints(file, routes);
+  // })
 	// TODO: need to iterate over files array and execute detect SYNCHRONOUSLY
 
   window.showInformationMessage('Successfully detected server routes\nPlease input request data for applicable endpoints'); // fs.writeFile

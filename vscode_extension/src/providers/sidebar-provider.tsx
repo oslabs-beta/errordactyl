@@ -47,6 +47,7 @@ export class SidebarWebview implements WebviewViewProvider {
 							// returns array of endpoint objects
 							const routes = await parse(config, folder);
 							console.log('parsed routes', routes);
+              console.log('test');
 							// set state
 							this.workspaceStorage.setValue("routes", routes);
 							// post message back to webview
