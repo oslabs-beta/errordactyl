@@ -1,8 +1,3 @@
-try {
-	require("module-alias/register");
-} catch (e) {
-	console.log("module-alias import error !");
-}
 import * as vscode from "vscode";
 import { EXTENSION_CONSTANT } from "./constant";
 import { SidebarWebview } from "./providers/sidebar-provider";

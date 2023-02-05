@@ -1,3 +1,5 @@
+import { Uri } from 'vscode';
+
 export type methodType = "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
 
 export interface endpoint {
@@ -63,7 +65,7 @@ export interface testMethods {
 export interface config {
   serverPath: string,
   routesPath: string,
-  filePaths: string[],
+  filePaths: Uri[],
   endpoints?: endpoint[],
   PORT?: number
 }

@@ -38,10 +38,17 @@ export class SidebarWebview implements WebviewViewProvider {
           case 'parse':
             if (workspace.workspaceFolders !== undefined) {
 							// get config from state
-							const config = this.workspaceStorage.getState("config");
+							// const config = this.workspaceStorage.getValue("config");
+							const config = {serverPath: '/server/server.js', routesPath: 'server', filePaths: []};
+							const folder = workspace.workspaceFolders[0];
+							console.log('folder', folder);
 							// returns array of endpoint objects
-							const routes = parse(config);
-							this.workspaceStorage.setState("routes", routes);
+							const routes = await parse(config, folder);
+							console.log('parsed routes', routes);
+							// set state
+							this.workspaceStorage.setValue("routes", routes);
+							// post message back to webview
+							this._view.webview.postMessage({action: 'parse', data: routes});
             } else {
 							window.showInformationMessage('No directory currently opened');
 						}
@@ -85,7 +92,6 @@ export class SidebarWebview implements WebviewViewProvider {
       </head>
       <body>
 			<div id="root">
-				<p>something</p>
         <script> const vscode = acquireVsCodeApi() </script>
 				<script nonce="${nonce}" type="text/javascript" src="${constantUri}"></script> 
 				<script nonce="${nonce}" src="${scriptUri}"></script>

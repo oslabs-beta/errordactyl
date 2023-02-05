@@ -11,7 +11,6 @@ import { VSCodeAPI } from '../vsCodeApi';
 export default function SideBar() {
   const [routes, setRoutes] = useState<endpoint[]>([]);
   const [selected, setSelected] = useState([]);
-  const [stateTest, setStateTest] = useState('test');
 
   // function to retrieve endpoints from extension storage
   const getRoutes = () => {
@@ -31,7 +30,8 @@ export default function SideBar() {
       switch (message.action) {
         case 'parse':
           console.log('message received by the sidebar');
-          setStateTest(message.data);
+					// message should come back with routes array
+          setRoutes(message.data);
           break;
       }
     });
@@ -44,7 +44,6 @@ export default function SideBar() {
       {routes.length ? <Routes endpoints={routes}/> : <p>No routes configured.</p>}
       <ParseButton />
       <RunButtons />
-      {stateTest}
     </div>
   )
 }

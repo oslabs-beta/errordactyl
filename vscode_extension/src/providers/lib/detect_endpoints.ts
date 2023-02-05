@@ -1,17 +1,18 @@
 import { endpoint, methodType } from '../../../types';
-const fs = require('fs/promises');
+import { workspace, Uri } from 'vscode';
 
-export const detectEndpoints = async (path: string, routes: endpoint[]) => {
+export const detectEndpoints = async (path: Uri, routes: endpoint[]) => {
 	// read file from passed in route
-  let file = await fs.readFile(path); // replaced with Node's fs.readFile
-
+  let temp = await workspace.fs.readFile(path); // replaced with Node's fs.readFile
+	let file = temp.toString();
+	// console.log('read file', file);
   // strip comments from file
   file = file.replace(/\/\*[\s\S]*?\*\/|\/\/.*/g, '');
   // iterate over methods dictionary and match method in file
 	const methods: methodType[] = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'];
 
   for (const method of methods) {
-    const regex = new RegExp(`\\.${method}\\("(\\S)*"`, 'gi');
+    const regex = new RegExp(`\\.${method}\\(('|")(\\S)*('|")`, 'gi');
     const endpoints: RegExpMatchArray|null = file.match(regex);
 
     if (endpoints) {
@@ -29,4 +30,5 @@ export const detectEndpoints = async (path: string, routes: endpoint[]) => {
       }
     }
   }
+  // console.log(routes);
 }
