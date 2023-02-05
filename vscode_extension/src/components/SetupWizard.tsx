@@ -17,7 +17,7 @@ export default function SetupWizard() {
 			PORT: port
 		}
 
-		VSCodeAPI.postMessage({action: 'config', data: config})
+		VSCodeAPI.postMessage({action: 'set-config', data: config})
 	}
 
 	return (

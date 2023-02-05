@@ -8,7 +8,7 @@
   "activationEvents": [
     "onView:edact.mainView"
   ],
-  "main": "./dist/extension.js",
+  "main": "./dist/src/extension.js",
   "contributes": {
     "viewsContainers": {
       "activitybar": [

@@ -1,3 +1,5 @@
+import { Uri } from 'vscode';
+
 export type methodType = "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
 
 export interface endpoint {
@@ -5,15 +7,16 @@ export interface endpoint {
   path: string,
   // params?: RegExpMatchArray | null,
   body?: Record<string, unknown>,
-  headers?: Record<string, unknown>
+  headers?: Record<string, unknown>,
+	response?: string
 }
 
 export interface methodCacheExtended {
-  GET: endpoint[],
-  POST: endpoint[],
-  PUT: endpoint[],
-  PATCH: endpoint[],
-  DELETE: endpoint[]
+  "GET": endpoint[],
+  "POST": endpoint[],
+  "PUT": endpoint[],
+  "PATCH": endpoint[],
+  "DELETE": endpoint[]
 }
 
 export interface methodCache {
@@ -62,7 +65,7 @@ export interface testMethods {
 export interface config {
   serverPath: string,
   routesPath: string,
-  filePaths?: string[],
-  endpoints?: methodCacheExtended
+  filePaths?: Uri[],
+  endpoints?: endpoint[],
   PORT?: number
 }

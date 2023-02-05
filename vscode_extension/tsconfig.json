@@ -12,3 +12,4 @@
 	},
   "files": ["src/extension.ts", "src/constant.ts", "src/providers/sidebar-provider.tsx"]
 }
+

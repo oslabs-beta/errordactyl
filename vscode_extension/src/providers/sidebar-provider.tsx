@@ -1,7 +1,9 @@
 // class implementation of sidebar view provider
-import { WebviewViewProvider, WebviewView, Webview, Uri, EventEmitter, workspace } from "vscode";
+import { WebviewViewProvider, WebviewView, Webview, Uri, EventEmitter, workspace, window } from "vscode";
 // import * as ReactDOMServer from "react-dom/server";
 import { Utils } from "../utils";
+import { parse } from "./lib/parse";
+import { config } from "../../types";
 
 //@ts-ignore
 
@@ -15,6 +17,7 @@ export class SidebarWebview implements WebviewViewProvider {
     ){}
 
     private onDidChangeTreeData: EventEmitter<any | undefined | null | void> = new EventEmitter<any | undefined | null | void>();
+
 
     refresh(context: any): void {
         this.onDidChangeTreeData.fire(null);
@@ -33,23 +36,34 @@ export class SidebarWebview implements WebviewViewProvider {
 
     private activateMessageListener() {
       this._view.webview.onDidReceiveMessage(async (message: any) => {
+        let config = this.workspaceStorage.getValue("config");
+
         switch (message.action) {
           case 'parse':
             if (workspace.workspaceFolders !== undefined) {
 
-            }
+							const folder = workspace.workspaceFolders[0];
+							console.log('folder', folder);
+							// returns array of endpoint objects
+							const routes = await parse(config, folder);
+							console.log('parsed routes', routes);
+							// set state
+							this.workspaceStorage.setValue("routes", routes);
+							// post message back to webview
+							this._view.webview.postMessage({action: 'parse', data: routes});
+            } else {
+							window.showInformationMessage('No directory currently opened');
+						}
             break;
           case 'get-initial-state':
             // retrieve any data already in state (check for config)
-            let config = this.workspaceStorage.getValue("config");
-
             if (config) {
               console.log("config data in workspaceStorage (initial state)", config);
-              this._view.webview.postMessage({action: "config", data: {routes: config.routes}});
+              this._view.webview.postMessage({action: "config", data: config});
             }
             break;
-          case 'config':
-            // store config in state
+          case 'set-config':
+            // store config in workspace storage
             this.workspaceStorage.setValue("config", message.data);
             console.log("config data in workspaceStorage (setting state)", this.workspaceStorage.getValue("config"))
             this._view.webview.postMessage({action: "config"})
