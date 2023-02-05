@@ -2,7 +2,7 @@ const fs = require('fs/promises');
 import { window, Uri, WorkspaceFolder } from "vscode";
 
 import findFiles from './find_files';
-import fileFinder from './test_filefinder';
+import fileFinder from './filefinder';
 import { detectEndpoints } from './detect_endpoints';
 import { endpoint, config } from '../../../types';
 
