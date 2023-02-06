@@ -37,6 +37,7 @@ export default function SideBar() {
           setRoutes(message.data);
           break;
         case 'config':
+          message.data? setRoutes(message.data) : null;
           setConfigInit(true);
       }
     });
@@ -46,7 +47,7 @@ export default function SideBar() {
 
   return (
     <div>
-      {routes && <Routes endpoints={routes}/>}
+      {configInit? routes && <Routes endpoints={routes}/> : null}
       {configInit? <ParseButton setConfigInit={setConfigInit}/> : <SetupWizard />}
     </div>
   )

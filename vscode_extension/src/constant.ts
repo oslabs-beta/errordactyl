@@ -6,7 +6,7 @@ const ELEMENT_IDS = {
 
 const DEFAULT_PATHS = {
     SERVER: "/server/server.js",
-    ROUTES: "/server/routes",
+    ROUTES: "server/routes",
     PORT: 3000,
 }
 

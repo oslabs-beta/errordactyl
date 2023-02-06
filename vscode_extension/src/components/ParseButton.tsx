@@ -9,14 +9,18 @@ interface ParseButtonProps {
 export default function ParseButton({ setConfigInit }: ParseButtonProps) {
 
   const testHandler = () => {
-    // setConfigInit(false);
     VSCodeAPI.postMessage({ action: "parse" });
+  }
+
+  const resetHandler = () => {
+    setConfigInit(false);
+    VSCodeAPI.postMessage({action: "reset"});
   }
 
   return (
     <>
       <VSCodeButton appearance="primary" onClick={testHandler}>Parse</VSCodeButton>
-      <VSCodeButton appearance="primary" onClick={() => setConfigInit(false)}>Reset</VSCodeButton>
+      <VSCodeButton appearance="primary" onClick={resetHandler}>Reset</VSCodeButton>
     </>
   )
 }

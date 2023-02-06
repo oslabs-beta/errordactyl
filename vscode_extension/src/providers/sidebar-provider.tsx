@@ -37,6 +37,7 @@ export class SidebarWebview implements WebviewViewProvider {
     private activateMessageListener() {
       this._view.webview.onDidReceiveMessage(async (message: any) => {
         let config = this.workspaceStorage.getValue("config");
+        let routes = this.workspaceStorage.getValue("routes");
 
         switch (message.action) {
           case 'parse':
@@ -60,7 +61,8 @@ export class SidebarWebview implements WebviewViewProvider {
             // retrieve any data already in state (check for config)
             if (config) {
               console.log("config data in workspaceStorage (initial state)", config);
-              this._view.webview.postMessage({action: "config", data: config});
+              console.log("routes data in workspaceStorage (initial state)", routes);
+              this._view.webview.postMessage({action: "config", data: routes});
             }
             break;
           case 'set-config':
@@ -75,7 +77,9 @@ export class SidebarWebview implements WebviewViewProvider {
             break;
           case 'reset' :
             this.workspaceStorage.setValue("config", undefined);
+            this.workspaceStorage.setValue("routes", undefined);
             console.log("storage reset, config is now:", this.workspaceStorage.getValue("config"));
+            console.log("storage reset, routes is now:", this.workspaceStorage.getValue("routes"));
         }
       })
     }
