@@ -58,3 +58,5 @@ The generated output from the CLI would be:
 The output error data is returned as a JSON object, writing all of the error stack trace data into a readable format. 
  
 ## Contributing
+
+The main purpose of this repository is to provide a general overview of the architecture of the application. Development of the tool is ongoing and we are open to any contributions that may be provided from curious onlookers and users. 
