@@ -20,6 +20,7 @@ router.get('/', (ctx) => {
   ctx.response.body = "Get Request";
   throw new EvalError;
 });
+```
 
 When running our tool for the first time, running the `edact init` command will generate a configuration file in a step-by-step process in the command line to determine endpoints and setup the starting configuration file, while considering pre-existing conditions such as existing configuration files and server paths.
 
