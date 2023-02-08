@@ -8,14 +8,16 @@ import RunButtons from '../components/RunButtons';
 
 interface RoutesProps {
   setConfigInit: Dispatch<SetStateAction<boolean>>,
+  setSelected: Dispatch<SetStateAction<Array<endpoint>>>,
+  selectedRoutes: endpoint[],
   endpoints: endpoint[]
 }
 
-export default function Routes({ setConfigInit, endpoints }: RoutesProps) {
+export default function Routes({ setConfigInit, setSelected, selectedRoutes, endpoints}: RoutesProps) {
   // render array of endpoint components
   const routes = endpoints.map((endpoint, i) => {
     return (
-      <Endpoint endpoint={endpoint} key={i}/>
+      <Endpoint setSelected={setSelected} selectedRoutes={selectedRoutes} endpoint={endpoint} key={i}/>
     )
   })
   return (
@@ -25,7 +27,7 @@ export default function Routes({ setConfigInit, endpoints }: RoutesProps) {
         <ParseButton setConfigInit={setConfigInit}/>
       </div>
       {routes}
-      <RunButtons />
+      <RunButtons selectedRoutes={selectedRoutes} />
     </div>
   )
 }

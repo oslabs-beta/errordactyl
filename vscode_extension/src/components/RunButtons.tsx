@@ -1,15 +1,20 @@
 import { VSCodeButton } from '@vscode/webview-ui-toolkit/react';
 import { MdArrowForwardIos, MdDoubleArrow } from 'react-icons/md';
+import { endpoint } from '../../types';
 
 interface RunBtnProps {
-  selected: boolean
+  selectedRoutes: endpoint[]
 }
 
 // buttons to run either batch endpoints or selected
-export default function RunButtons() {
+export default function RunButtons({selectedRoutes}:RunBtnProps) {
+
+  const handleClick = () => {
+    console.log("selected Routes", selectedRoutes);
+  }
   return (
     <div>
-      <VSCodeButton id="run-button">
+      <VSCodeButton id="run-button" onClick={() => handleClick()}>
         <MdArrowForwardIos/>
         <span id="tooltip">Test selected routes</span>
       </VSCodeButton>

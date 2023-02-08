@@ -7,7 +7,7 @@ interface ConfigProps {
 }
 
 // config box for endpoint components
-export default function Config({ path, body }: ConfigProps ) {
+export default function Request({ path, body }: ConfigProps ) {
   // editable text box for options: body, endpoint url
   // pass data back to parent Endpoint component via props
 

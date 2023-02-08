@@ -8,6 +8,7 @@ import { VSCodeAPI } from '../vsCodeApi';
 // main app to display in the sidebar provider html
 export default function SideBar() {
   const [routes, setRoutes] = useState<endpoint[]>([]);
+  const [selected, setSelected] = useState<endpoint[]>([]);
   const [configInit, setConfigInit] = useState(false);
 
   // function to retrieve endpoints from extension storage
@@ -42,7 +43,7 @@ export default function SideBar() {
 
   return (
     <div className='sidebar'>
-      {configInit? routes && <Routes setConfigInit={setConfigInit} endpoints={routes}/> : <SetupWizard />}
+      {configInit? routes && <Routes setConfigInit={setConfigInit} setSelected={setSelected} selectedRoutes={selected} endpoints={routes}/> : <SetupWizard />}
     </div>
   )
 }
