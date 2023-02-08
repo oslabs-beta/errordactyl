@@ -1,13 +1,16 @@
+import { Dispatch, SetStateAction } from 'react';
 import { VSCodeButton } from '@vscode/webview-ui-toolkit/react';
 import { VSCodeAPI } from '../vsCodeApi';
+import { endpoint } from '../../types';
 import { VscSearch } from 'react-icons/vsc';
 import { RxReset } from 'react-icons/rx';
 
 interface ParseButtonProps {
-  setConfigInit: React.Dispatch<React.SetStateAction<boolean>>
+  setConfigInit: Dispatch<SetStateAction<boolean>>,
+  setRoutes: Dispatch<SetStateAction<Array<endpoint>>>
 }
 
-export default function ParseButton({ setConfigInit }: ParseButtonProps) {
+export default function ParseButton({ setConfigInit, setRoutes }: ParseButtonProps) {
 
   const testHandler = () => {
     VSCodeAPI.postMessage({ action: "parse" });
@@ -15,6 +18,7 @@ export default function ParseButton({ setConfigInit }: ParseButtonProps) {
 
   const resetHandler = () => {
     setConfigInit(false);
+    setRoutes([]);
     VSCodeAPI.postMessage({action: "reset"});
   }
 

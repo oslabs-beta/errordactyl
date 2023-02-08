@@ -87,3 +87,9 @@ body {
 	left: 0;
 	top: 5%;
 }
+
+#search-message {
+	position: absolute;
+	left: 5%;
+	top: 10%;
+}

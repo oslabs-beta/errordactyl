@@ -43,7 +43,7 @@ export default function SideBar() {
 
   return (
     <div className='sidebar'>
-      {configInit? routes && <Routes setConfigInit={setConfigInit} setSelected={setSelected} selectedRoutes={selected} endpoints={routes}/> : <SetupWizard />}
+      {configInit? routes && <Routes setConfigInit={setConfigInit} setSelected={setSelected} selectedRoutes={selected} setRoutes={setRoutes} endpoints={routes}/> : <SetupWizard />}
     </div>
   )
 }

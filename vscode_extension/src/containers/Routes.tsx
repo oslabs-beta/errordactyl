@@ -5,15 +5,17 @@ import { endpoint } from '../../types';
 import Endpoint from '../components/Endpoint';
 import ParseButton from '../components/ParseButton';
 import RunButtons from '../components/RunButtons';
+import { VscSearch } from 'react-icons/vsc';
 
 interface RoutesProps {
   setConfigInit: Dispatch<SetStateAction<boolean>>,
   setSelected: Dispatch<SetStateAction<Array<endpoint>>>,
   selectedRoutes: endpoint[],
+  setRoutes: Dispatch<SetStateAction<Array<endpoint>>>,
   endpoints: endpoint[]
 }
 
-export default function Routes({ setConfigInit, setSelected, selectedRoutes, endpoints}: RoutesProps) {
+export default function Routes({ setConfigInit, setSelected, selectedRoutes, setRoutes, endpoints}: RoutesProps) {
   // render array of endpoint components
   const routes = endpoints.map((endpoint, i) => {
     return (
@@ -24,10 +26,10 @@ export default function Routes({ setConfigInit, setSelected, selectedRoutes, end
     <div>
       <div className='routes-header'>
         <h1>Routes</h1>
-        <ParseButton setConfigInit={setConfigInit}/>
+        <ParseButton setConfigInit={setConfigInit} setRoutes={setRoutes} />
       </div>
       {routes}
-      <RunButtons selectedRoutes={selectedRoutes} />
+      {routes.length? <RunButtons selectedRoutes={selectedRoutes}/>: <div id="search-message">Click <VscSearch/> to search for routes!</div>}
     </div>
   )
 }
