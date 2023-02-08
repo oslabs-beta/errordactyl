@@ -8,7 +8,7 @@ export default function Panel() {
 
 
 	return(
-		<VSCodePanels>
+		<VSCodePanels className="panel">
 			<VSCodePanelTab id="tab-1">Request</VSCodePanelTab>
 			<VSCodePanelTab id="tab-2">Response</VSCodePanelTab>
 			<VSCodePanelView id="view-1"><Config path="" /></VSCodePanelView>

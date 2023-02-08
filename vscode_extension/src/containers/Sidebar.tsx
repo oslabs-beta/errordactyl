@@ -1,18 +1,13 @@
 import Routes from './Routes';
-import ParseButton from '../components/ParseButton';
-import RunButtons from '../components/RunButtons';
 import SetupWizard from '../components/SetupWizard';
 import { endpoint } from '../../types';
 import { useState, useEffect } from 'react';
-// mock data for testing purposes
-import { MOCK_ROUTES } from '../data/api';
 import { VSCodeAPI } from '../vsCodeApi';
 
 
 // main app to display in the sidebar provider html
 export default function SideBar() {
   const [routes, setRoutes] = useState<endpoint[]>([]);
-  const [selected, setSelected] = useState([]);
   const [configInit, setConfigInit] = useState(false);
 
   // function to retrieve endpoints from extension storage
@@ -46,9 +41,8 @@ export default function SideBar() {
   }, [])
 
   return (
-    <div>
-      {configInit? routes && <Routes endpoints={routes}/> : null}
-      {configInit? <ParseButton setConfigInit={setConfigInit}/> : <SetupWizard />}
+    <div className='sidebar'>
+      {configInit? routes && <Routes setConfigInit={setConfigInit} endpoints={routes}/> : <SetupWizard />}
     </div>
   )
 }

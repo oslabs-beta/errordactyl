@@ -13,12 +13,77 @@ body {
 	width: 100%;
 }
 
+.sidebar {
+}
+
+.routes-header {
+	display:flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding-left: 1em;
+}
+
+#parse-button {
+	height: 50%;
+}
+
+#parse-button:hover #parse-tooltip {
+	visibility: visible;
+}
+
 .endpoint-label {
 	display:flex;
 	flex-direction: row;
 	align-items: center;
+	padding-left: 1em;
+	padding-bottom: 0.5em;
 }
 
 #show-panel-button {
 	background-color: transparent;
+}
+
+.panel {
+	padding-left: 1em;
+}
+
+#run-button {
+	width: 3em;
+}
+
+#run-button:hover #tooltip {
+	visibility: visible;
+}
+
+#tooltip {
+	visibility: hidden;
+	width: 120px;
+	background-color: transparent;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+  
+	/* Position the tooltip */
+	position: absolute;
+	z-index: 1;
+	top: 5%;
+	left: 0;
+}
+
+#parse-tooltip {
+	visibility: hidden;
+	width: 120px;
+	background-color: transparent;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+  
+	/* Position the tooltip */
+	position: absolute;
+	z-index: 1;
+	left: 0;
+	top: 5%;
 }
