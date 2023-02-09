@@ -75,7 +75,8 @@ export class SidebarWebview implements WebviewViewProvider {
 
           case 'test-routes':
             // generate script and return responses from server
-            await test(routes, config.PORT)
+            const endpointsWithResponse = await test(routes, config.PORT, config.serverPath);
+            console.log('final endpoints ->', endpointsWithResponse);
             break;
           case 'reset' :
             this.workspaceStorage.setValue("config", undefined);
