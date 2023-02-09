@@ -1,4 +1,4 @@
-# Errordactyl
+# [Errordactyl](https://errordactyl.com/)
 
 Errordactyl is a tool that automates HTTP endpoint testing and error handling for web servers in the Node.js and Deno runtime environment.
 
