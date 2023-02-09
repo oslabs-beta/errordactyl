@@ -10,7 +10,7 @@ export async function parse(config: config, folder: WorkspaceFolder) {
   console.log("config", config);
 	// pull down any file paths from config object retrieved from state
   let files: Uri[] | undefined = await fileFinder(folder, config.routesPath);
-	console.log("files", files);
+	// console.log("files", files);
 
 	if (files) config.filePaths = files;
 
