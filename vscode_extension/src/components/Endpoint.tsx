@@ -39,7 +39,7 @@ export default function Endpoint({ setSelected, selectedRoutes, endpoint }: Endp
         <VSCodeCheckbox onChange={(event:any) => handleChange(event)}>{endpoint.method}: {endpoint.path}</VSCodeCheckbox>
         <VSCodeButton id="show-panel-button" onClick={()=>(showPanel(!panel))}>+</VSCodeButton>
       </div>
-      {panel? <Panel/> : null}
+      {panel? <Panel endpoint={endpoint}/> : null}
     </div>
   );
 }

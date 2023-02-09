@@ -4,7 +4,7 @@ import { WebviewViewProvider, WebviewView, Webview, Uri, EventEmitter, workspace
 import { Utils } from "../utils/utils";
 import { parse } from "./lib/parse";
 import { config } from "../../types";
-import { test } from "./lib/test";
+import { test, runRoutes } from "./lib/test";
 
 //@ts-ignore
 
@@ -74,9 +74,14 @@ export class SidebarWebview implements WebviewViewProvider {
             break;
 
           case 'test-routes':
+            console.log('test-routes message received')
             // generate script and return responses from server
             const endpointsWithResponse = await test(routes, config.PORT, config.serverPath);
+            // const endpointsWithResponse = await runRoutes(routes, config.PORT);
             console.log('final endpoints ->', endpointsWithResponse);
+            // send back updated config object
+            config.endpoints = endpointsWithResponse;
+            this._view.webview.postMessage({action: 'config', data: endpointsWithResponse});
             break;
           case 'reset' :
             this.workspaceStorage.setValue("config", undefined);
