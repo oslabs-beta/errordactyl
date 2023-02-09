@@ -5,7 +5,7 @@ const path = require('path');
 
 export default async function fileFinder(folder: WorkspaceFolder, routesPath: string) {
 	// create pattern
-  const pattern: RelativePattern = new RelativePattern(folder, routesPath + '/*.js');
+  const pattern: RelativePattern = new RelativePattern(folder, routesPath + '/*.{js,ts}');
 	console.log('relativePattern', pattern);
   
  	const foundFiles = await workspace.findFiles(pattern, '**/node_modules/**', 10);

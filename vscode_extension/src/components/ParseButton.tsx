@@ -17,10 +17,15 @@ export default function ParseButton({ setConfigInit }: ParseButtonProps) {
     VSCodeAPI.postMessage({action: "reset"});
   }
 
+  const runTestHandler = () => {
+    VSCodeAPI.postMessage({ action: "test-routes" });
+  }
+
   return (
     <>
       <VSCodeButton appearance="primary" onClick={testHandler}>Parse</VSCodeButton>
       <VSCodeButton appearance="primary" onClick={resetHandler}>Reset</VSCodeButton>
+      <VSCodeButton appearance="primary" onClick={runTestHandler}>Test Routes</VSCodeButton>
     </>
   )
 }

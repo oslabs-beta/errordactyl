@@ -4,6 +4,7 @@ import { WebviewViewProvider, WebviewView, Webview, Uri, EventEmitter, workspace
 import { Utils } from "../utils";
 import { parse } from "./lib/parse";
 import { config } from "../../types";
+import { test } from "./lib/test";
 
 //@ts-ignore
 
@@ -74,6 +75,7 @@ export class SidebarWebview implements WebviewViewProvider {
 
           case 'test-routes':
             // generate script and return responses from server
+            await test(routes, config.PORT)
             break;
           case 'reset' :
             this.workspaceStorage.setValue("config", undefined);
