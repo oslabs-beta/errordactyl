@@ -1,27 +1,35 @@
-// import React from 'react';
-import { VSCodeTextArea, VSCodeTextField, VSCodeButton } from '@vscode/webview-ui-toolkit/react'
+import { VSCodeDropdown, VSCodeOption } from "@vscode/webview-ui-toolkit/react"
+import { useState } from "react";
+import { Body, Parameters } from "./RequestComponents";
 
-interface ConfigProps {
-  path: string,
-	body?: Record<string, unknown>
-}
+export default function Request() {
 
-// config box for endpoint components
-export default function Request({ path, body }: ConfigProps ) {
-  // editable text box for options: body, endpoint url
-  // pass data back to parent Endpoint component via props
+	const [current, setCurrent] = useState("Body")
 
-	// format body
-	let bodyData = '';
-	for (const key in body) {
-		bodyData += `${key}: ${body[key]}\n`;
+	const handleSelect = (event:any) => {
+		console.log(event.target.value)
+		setCurrent(event.target.value)
 	}
 
-  return (
-    <div>
-      <VSCodeTextField placeholder={path}>Endpoint URL</VSCodeTextField>
-      <VSCodeTextArea placeholder={bodyData}>Request Body</VSCodeTextArea>
-      <VSCodeButton appearance="primary">Save</VSCodeButton>
-    </div>
-  )
+	const renderCurrent = (current:string) => {
+		switch (current) {
+			case 'Body':
+				return <Body path=""/>
+			case 'Parameters':
+				return <Parameters />
+				break;
+		}
+	}
+
+	return (
+		<div>
+			<VSCodeDropdown onChange={(event:any) => handleSelect(event)}>
+				<VSCodeOption>Body</VSCodeOption>
+				<VSCodeOption>Parameters</VSCodeOption>
+				<VSCodeOption>Authentication</VSCodeOption>
+				<VSCodeOption>Headers</VSCodeOption>
+			</VSCodeDropdown>
+			{renderCurrent(current)}
+		</div>
+	)
 }

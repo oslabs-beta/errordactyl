@@ -1,3 +1,5 @@
+import { VSCodeTextArea } from "@vscode/webview-ui-toolkit/react"
+
 interface ResponseProps {
 	response?: string
 }
@@ -7,7 +9,7 @@ export default function Response({ response }: ResponseProps) {
   // needs to display data returned from run routes action
   return (
     <div>
-      {response ? response : ''}
+      <VSCodeTextArea></VSCodeTextArea>
     </div>
   )
 }

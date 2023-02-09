@@ -30,8 +30,10 @@ export default function Routes({ setConfigInit, setSelected, selectedRoutes, set
         <ParseButton setConfigInit={setConfigInit} setRoutes={setRoutes} />
       </div>
       <VSCodeDivider />
-      {routes}
-      {routes.length? <RunButtons selectedRoutes={selectedRoutes}/>: <div id="search-message">Click <VscSearch/> to search for routes!</div>}
+      <div id="routes-wrapper">
+        {routes}
+        {routes.length? <RunButtons selectedRoutes={selectedRoutes}/>: <div id="search-message">Click <VscSearch/> to search for routes!</div>}
+      </div>
     </div>
   )
 }
