@@ -2,7 +2,7 @@
 import { endpoint } from '../../types';
 import { VSCodeButton, VSCodeCheckbox } from '@vscode/webview-ui-toolkit/react';
 import { Dispatch, SetStateAction, useState } from 'react';
-import Panel from './Panel';
+import Panel from '../containers/ConfigPanel';
 
 interface EndpointProps {
   setSelected: Dispatch<SetStateAction<Array<endpoint>>>,

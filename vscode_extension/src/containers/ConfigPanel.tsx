@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { VSCodePanels, VSCodePanelTab, VSCodePanelView } from "@vscode/webview-ui-toolkit/react";
-import Request from './Request';
-import Response from './Response';
+import Request from '../components/Request';
+import Response from '../components/Response';
 
 
 export default function Panel() {

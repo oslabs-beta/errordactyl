@@ -1,7 +1,7 @@
 // class implementation of sidebar view provider
 import { WebviewViewProvider, WebviewView, Webview, Uri, EventEmitter, workspace, window } from "vscode";
 // import * as ReactDOMServer from "react-dom/server";
-import { Utils } from "../utils";
+import { Utils } from "../utils/utils";
 import { parse } from "./lib/parse";
 import { config } from "../../types";
 

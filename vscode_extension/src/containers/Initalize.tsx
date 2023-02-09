@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { VSCodeTextField, VSCodeButton } from "@vscode/webview-ui-toolkit/react";
-import { VSCodeAPI } from "../vsCodeApi";
-import { EXTENSION_CONSTANT } from "../constant";
+import { VSCodeAPI } from "../utils/vsCodeApi";
+import { EXTENSION_CONSTANT } from "../utils/constant";
 import { config } from "../../types";
 
-export default function SetupWizard() {
+export default function Initalize() {
 	const [serverPath, setServerPath] = useState(EXTENSION_CONSTANT.DEFAULT_PATHS.SERVER);
 	const [routesPath, setRoutesPath] = useState(EXTENSION_CONSTANT.DEFAULT_PATHS.ROUTES);
 	const [port, setPort] = useState(EXTENSION_CONSTANT.DEFAULT_PATHS.PORT)

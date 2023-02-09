@@ -1,8 +1,8 @@
 import Routes from './Routes';
-import SetupWizard from '../components/SetupWizard';
+import Initialize from './Initalize';
 import { endpoint } from '../../types';
 import { useState, useEffect } from 'react';
-import { VSCodeAPI } from '../vsCodeApi';
+import { VSCodeAPI } from '../utils/vsCodeApi';
 
 
 // main app to display in the sidebar provider html
@@ -43,7 +43,7 @@ export default function SideBar() {
 
   return (
     <div className='sidebar'>
-      {configInit? routes && <Routes setConfigInit={setConfigInit} setSelected={setSelected} selectedRoutes={selected} setRoutes={setRoutes} endpoints={routes}/> : <SetupWizard />}
+      {configInit? routes && <Routes setConfigInit={setConfigInit} setSelected={setSelected} selectedRoutes={selected} setRoutes={setRoutes} endpoints={routes}/> : <Initialize />}
     </div>
   )
 }

@@ -10,6 +10,6 @@
     "baseUrl": "./src",
     "importHelpers": true
 	},
-  "files": ["src/extension.ts", "src/constant.ts", "src/providers/sidebar-provider.tsx"]
+  "files": ["src/extension.ts", "src/utils/constant.ts", "src/providers/sidebar-provider.tsx"]
 }
 

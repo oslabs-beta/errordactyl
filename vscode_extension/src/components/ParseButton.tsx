@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import { VSCodeButton } from '@vscode/webview-ui-toolkit/react';
-import { VSCodeAPI } from '../vsCodeApi';
+import { VSCodeAPI } from '../utils/vsCodeApi';
 import { endpoint } from '../../types';
 import { VscSearch } from 'react-icons/vsc';
 import { RxReset } from 'react-icons/rx';
