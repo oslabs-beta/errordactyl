@@ -5,6 +5,7 @@ import { endpoint } from '../../types';
 import Endpoint from '../components/Endpoint';
 import ParseButton from '../components/ParseButton';
 import RunButtons from '../components/RunButtons';
+import { VSCodeDivider } from '@vscode/webview-ui-toolkit/react';
 import { VscSearch } from 'react-icons/vsc';
 
 interface RoutesProps {
@@ -28,6 +29,7 @@ export default function Routes({ setConfigInit, setSelected, selectedRoutes, set
         <h1>Routes</h1>
         <ParseButton setConfigInit={setConfigInit} setRoutes={setRoutes} />
       </div>
+      <VSCodeDivider />
       {routes}
       {routes.length? <RunButtons selectedRoutes={selectedRoutes}/>: <div id="search-message">Click <VscSearch/> to search for routes!</div>}
     </div>

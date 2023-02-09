@@ -13,7 +13,7 @@ export default function RunButtons({selectedRoutes}:RunBtnProps) {
     console.log("selected Routes", selectedRoutes);
   }
   return (
-    <div>
+    <div id="run-btn-wrapper">
       <VSCodeButton id="run-button" onClick={() => handleClick()}>
         <MdArrowForwardIos/>
         <span id="tooltip">Test selected routes</span>

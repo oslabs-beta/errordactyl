@@ -28,7 +28,10 @@ export default function ParseButton({ setConfigInit, setRoutes }: ParseButtonPro
         <VscSearch/>
         <span id="parse-tooltip">Search for routes</span>
       </VSCodeButton>
-      <VSCodeButton id="parse-button" onClick={resetHandler}><RxReset/></VSCodeButton>
+      <VSCodeButton id="parse-button" onClick={resetHandler}>
+        <RxReset/>
+        <span id="parse-tooltip">Reset Extension</span>
+        </VSCodeButton>
     </div>
   )
 }
