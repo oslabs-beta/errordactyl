@@ -9,7 +9,7 @@ export default function Response({ response }: ResponseProps) {
   // needs to display data returned from run routes action
   return (
     <div>
-      <VSCodeTextArea>{response}</VSCodeTextArea>
+      <VSCodeTextArea placeholder={response}></VSCodeTextArea>
     </div>
   )
 }

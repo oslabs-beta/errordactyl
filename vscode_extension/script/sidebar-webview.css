@@ -58,6 +58,7 @@ body {
 #view-1 {
 	display:flex;
 	flex-direction: column;
+	visibility: visible;
 }
 
 #run-button {

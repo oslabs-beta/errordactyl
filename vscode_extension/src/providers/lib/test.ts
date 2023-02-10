@@ -18,11 +18,11 @@ export const test = async (endpoints: endpoint[], port: string, directory: strin
         subprocess.on('spawn', async () => {  
             console.log('server started');
 
-            await exec('sleep 1'); // might not need this 
+            await exec('sleep 2'); // might not need this 
 
             for (const endpoint of endpoints) {
                 try {
-                    const curlCommand = `curl -s ${endpoint.method} localhost:${port}/user${endpoint.path}`; // added api here b/c my routes are at /api
+                    const curlCommand = `curl -s ${endpoint.method} localhost:${port}/books${endpoint.path}`; // added api here b/c my routes are at /api
                     console.log(curlCommand);
                     const { stdout, stderr } = await exec(curlCommand);
                     if (stdout) {
@@ -34,8 +34,8 @@ export const test = async (endpoints: endpoint[], port: string, directory: strin
                     endpoint.response = e as string;
                 }
             }
-
-            subprocess.kill(); 
+            console.log("almost dead");
+            // subprocess.kill(); 
 
             resolve(endpoints);
 
@@ -47,6 +47,9 @@ export const test = async (endpoints: endpoint[], port: string, directory: strin
         subprocess.stdout.on('data', (data: ArrayBuffer) => {
             console.log(data.toString());
         });
+        subprocess.on('close', () => {
+            console.log("subprocess closed");
+        })
 
     })
 }
