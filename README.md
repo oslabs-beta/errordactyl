@@ -7,5 +7,5 @@ Errordactyl is a tool that automates HTTP endpoint testing and error handling fo
 * **Readable:** Compiled error data gets returned from the error stream as a JSON object with elegant formatting to ensure error readability. 
 
 # Installation
-**[Deno CLI Tool]**(https://github.com/oslabs-beta/errordactyl/main/deno_cli/)
+[Deno CLI Tool](https://github.com/oslabs-beta/errordactyl/main/deno_cli/)
 **[VS Code Extension]**(https://github.com/oslabs-beta/errordactyl/main/vscode_extension/)
