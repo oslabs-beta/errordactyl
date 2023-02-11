@@ -1,6 +1,13 @@
 
 ## Deno Installation
 
+Install the errordactyl (edact) script into Deno's global bin.
+**Note:** application permissions are still being scoped and optimized. 
+
+```sh
+deno install -A edact.ts
+```
+
 ## Configuration
 
 Suppose we have following example of a route built using Oak.js listening for requests from port 3000. An exception is thrown on purpose in order to test the error handling functionality of the tool. 
@@ -15,13 +22,13 @@ router.get('/', (ctx) => {
 });
 ```
 
-When running our tool for the first time, running the `edact init` command will generate a configuration file in a step-by-step process in the command line to determine endpoints and setup the starting configuration file, while considering pre-existing conditions such as existing configuration files and server paths.
+Initialize errordactyl in the project that you are currently testing with  `edact init`. This command will generate a configuration file in a step-by-step process in the command line to determine endpoints and setup the starting configuration file, while considering pre-existing conditions such as existing configuration files and server paths.
 
 ```sh
 edact init
 ```
 
-After the initial setup is complete and a configuration file is generated, compile your executable bash script by passing the `edact -f` command to populate the file with all of the endpoint routes, following any instructions the CLI outputs to the user.
+After the initial setup is complete and a configuration file is generated in `proejctRoot/_errordactyl/`, compile your executable bash script by passing the `edact -f` command to populate the file with all of the endpoint routes, following any instructions the CLI outputs to the user.
 
 ```sh
 edact -f
