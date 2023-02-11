@@ -22,13 +22,13 @@ router.get('/', (ctx) => {
 });
 ```
 
-Initialize errordactyl in the project that you are currently testing with  `edact init`. This command will generate a configuration file in a step-by-step process in the command line to determine endpoints and setup the configuration file, while considering pre-existing conditions such as existing configuration files and server paths.
+Initialize errordactyl in the project that you are currently testing with  `edact init` and complete the inital prompts to create a config file in `projectRoot/_errordactyl/`
 
 ```sh
 edact init
 ```
 
-After the initial setup is complete and a configuration file is generated in `projectRoot/_errordactyl/`, compile your executable bash script by running `edact -f` to populate the file with all of the endpoint routes.
+After the initial setup is complete, compile your executable bash script by running `edact -f` to populate the file with all of the endpoint routes.
 
 ```sh
 edact -f
