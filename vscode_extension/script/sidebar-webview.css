@@ -1,0 +1,116 @@
+body {
+	height: 100vh;
+	width: 100vw;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	/* background-color: green; */
+}
+
+#root, .sidebar {
+	/* background-color: blue; */
+	height: 100%;
+	width: 100%;
+}
+
+.sidebar {
+}
+
+.routes-header {
+	display:flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding-left: 1em;
+}
+
+#routes-wrapper {
+	display:flex;
+	flex-direction: column;
+}
+
+#parse-button {
+	height: 50%;
+	background-color: transparent;
+}
+
+#parse-button:hover #parse-tooltip {
+	visibility: visible;
+}
+
+.endpoint-label {
+	display:flex;
+	flex-direction: row;
+	align-items: center;
+	padding-left: 1em;
+	padding-bottom: 0.5em;
+}
+
+#show-panel-button {
+	background-color: transparent;
+}
+
+.panel {
+	height: fit-content;
+	padding-left: 1em;
+}
+
+#view-1 {
+	display:flex;
+	flex-direction: column;
+	visibility: visible;
+}
+
+#run-button {
+	width: 3em;
+
+}
+
+#run-button:hover #tooltip {
+	visibility: visible;
+}
+
+#run-btn-wrapper {
+	display:flex;
+	column-gap: 5%;
+	padding-left: 1em;
+	padding-top: 0.5em;
+}
+
+#tooltip {
+	visibility: hidden;
+	width: 120px;
+	background-color: transparent;
+	color: #fff;
+	text-align: left;
+	border-radius: 6px;
+	padding-left: 1em;
+  
+	/* Position the tooltip */
+	position: absolute;
+	z-index: 1;
+	top: 5%;
+	left: 0;
+}
+
+#parse-tooltip {
+	visibility: hidden;
+	width: fit-content;
+	background-color: transparent;
+	color: #fff;
+	text-align: left;
+	border-radius: 6px;
+	padding-left: 1em;
+  
+	/* Position the tooltip */
+	position: absolute;
+	z-index: 1;
+	left: 0;
+	top: 5%;
+}
+
+#search-message {
+	position: absolute;
+	left: 5%;
+	top: 10%;
+}

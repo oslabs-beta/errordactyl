@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "es6",
+		"lib": ["es6", "dom"],
+		"outDir": "dist",
+		"sourceMap": true,
+		"strict": true,
+    "jsx": "react-jsx",
+    "baseUrl": "./src",
+    "importHelpers": true
+	},
+  "files": ["src/extension.ts", "src/utils/constant.ts", "src/providers/sidebar-provider.tsx"]
+}
+
