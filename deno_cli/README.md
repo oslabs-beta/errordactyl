@@ -34,7 +34,9 @@ After the initial setup is complete and a configuration file is generated in `pr
 edact -f
 ```
 
-Now that all of the files have been generated, it is time to test your server. Back in our CLI, we would run the simple `edact` command to invoke our generated shell script, testing all of the detected endpoints from the configuration file. 
+Edit the request body, parameters, and headers in  `/_errordactyl/config.json`
+
+Now that all of the files have been generated and routes have been configured, it is time to test your server by simply running `edact` to invoke the generated shell script, testing all of the detected endpoints from the configuration file. 
 
 ```sh
 edact
