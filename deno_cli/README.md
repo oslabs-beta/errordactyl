@@ -1,11 +1,11 @@
 
 ## Deno Installation
 
-Install the errordactyl (edact) script into Deno's global bin.
-**Note:** application permissions are still being scoped and optimized. 
+Fork and clone the repository and install the errordactyl (edact) script into Deno's global bin.
+* **Note:** application permissions are still being scoped and optimized. 
 
 ```sh
-deno install -A edact.ts
+deno install -A 'path To edact.ts'
 ```
 
 ## Configuration
