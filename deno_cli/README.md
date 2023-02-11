@@ -7,6 +7,7 @@ Fork and clone the repository and install the errordactyl (edact) script into De
 ```sh
 deno install -A 'path To edact.ts'
 ```
+we are working on publishing to Deno Land so that installation can be more streamlined!
 
 ## Configuration
 
