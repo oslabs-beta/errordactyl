@@ -8,4 +8,4 @@ Errordactyl is a tool that automates HTTP endpoint testing and error handling fo
 
 # Installation
 [Deno CLI Tool](https://github.com/oslabs-beta/errordactyl/main/deno_cli/)
-**[VS Code Extension]**(https://github.com/oslabs-beta/errordactyl/main/vscode_extension/)
+[VS Code Extension](https://github.com/oslabs-beta/errordactyl/main/vscode_extension/)
