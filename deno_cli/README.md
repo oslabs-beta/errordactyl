@@ -28,7 +28,7 @@ Initialize errordactyl in the project that you are currently testing with  `edac
 edact init
 ```
 
-After the initial setup is complete and a configuration file is generated in `proejctRoot/_errordactyl/`, compile your executable bash script by passing the `edact -f` command to populate the file with all of the endpoint routes, following any instructions the CLI outputs to the user.
+After the initial setup is complete and a configuration file is generated in `projectRoot/_errordactyl/`, compile your executable bash script by passing the `edact -f` command to populate the file with all of the endpoint routes, following any instructions the CLI outputs to the user.
 
 ```sh
 edact -f
